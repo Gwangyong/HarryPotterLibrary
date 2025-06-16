@@ -3,21 +3,22 @@
 //  HarryPotterLibrary
 //
 //  Created by 서광용 on 6/13/25.
-//
+// MARK: 메인 VC
 import SnapKit
 import UIKit
 
 class BookDetailViewController: UIViewController {
     
     let dataService = DataService()
-    let bookHeaderView = BookHeaderView(frame: .zero)
+    let bookTitleView = BookTitleView(frame: .zero)
     let bookTopTabView = BookTopTabView(frame: .zero)
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
-        setupLayout()
-        loadBooks()
+        loadBooks() // 데이터 불러오기
+        setupTitleLayout() // 책 제목
+        setupTopTabLayout() // 탭 버튼
     }
     
     func loadBooks() {
@@ -27,11 +28,10 @@ class BookDetailViewController: UIViewController {
             
             switch result {
             case .success(let books):
-                self.bookHeaderView.setTitle(books[0].title)
+                self.bookTitleView.setTitle(books[0].title)
             case .failure(let error):
                 print(error.localizedDescription)
             }
         }
     }
 }
-
