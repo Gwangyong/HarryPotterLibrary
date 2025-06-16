@@ -9,31 +9,30 @@ import UIKit
 
 class ViewController: UIViewController {
     
+    private let dataService = DataService()
+    private let bookHeaderView = BookHeaderView()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        loadBooks()
+        view.backgroundColor = .systemBackground
+        
+
     }
     
-    private let dataService = DataService()
+
     
     func loadBooks() {
         dataService.loadBooks { [weak self] result in
+            // self가 살아있는지 확인하고, 살아있을 때만 코드 실행하는 안전장치
             guard let self = self else { return }
             
             switch result {
             case .success(let books):
-                print("✅ books 로딩 성공: \(books.count)권")
-                
-                for book in books {
-                    print("📘 \(book.title)")
-                }
-                
-                
+                self.bookHeaderView.setTitle(books[0].title)
             case .failure(let error):
-                print("실패")
+                print(error.localizedDescription)
             }
         }
     }
-    
 }
 
