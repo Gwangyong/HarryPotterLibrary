@@ -8,6 +8,7 @@
 import UIKit
 import SnapKit
 
-final class BookListViewController {
+final class BookTopTabView: UIView {
+
     
 }

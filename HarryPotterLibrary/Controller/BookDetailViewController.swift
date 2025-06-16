@@ -7,19 +7,18 @@
 import SnapKit
 import UIKit
 
-class ViewController: UIViewController {
+class BookDetailViewController: UIViewController {
     
-    private let dataService = DataService()
-    private let bookHeaderView = BookHeaderView()
+    let dataService = DataService()
+    let bookHeaderView = BookHeaderView(frame: .zero)
+    let bookTopTabView = BookTopTabView(frame: .zero)
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
-        
-
+        setupLayout()
+        loadBooks()
     }
-    
-
     
     func loadBooks() {
         dataService.loadBooks { [weak self] result in
