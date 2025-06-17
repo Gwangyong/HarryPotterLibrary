@@ -16,6 +16,10 @@ class BookDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
+        [bookTopTabView, bookTitleView].forEach {
+            view.addSubview($0)
+        }
+        
         loadBooks() // 데이터 불러오기
         setupTitleLayout() // 책 제목
         setupTopTabLayout() // 탭 버튼
@@ -28,6 +32,7 @@ class BookDetailViewController: UIViewController {
             
             switch result {
             case .success(let books):
+                // 첫 번째 책 제목 표시
                 self.bookTitleView.setTitle(books[0].title)
             case .failure(let error):
                 print(error.localizedDescription)

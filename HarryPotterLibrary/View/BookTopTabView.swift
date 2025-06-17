@@ -11,7 +11,7 @@ import SnapKit
 /// 시리즈 버튼 관련 클래스
 final class BookTopTabView: UIView {
 
-    private let serizeButton = UIButton()
+    private let seriesButton = UIButton()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -23,17 +23,20 @@ final class BookTopTabView: UIView {
     }
     
     func setupUI() {
-        addSubview(serizeButton)
-        serizeButton.setTitle("1", for: .normal) // 우선은 하드코딩
-        serizeButton.titleLabel?.font = .systemFont(ofSize: 16)
-        serizeButton.setTitleColor(.white, for: .normal)
-        serizeButton.backgroundColor = .systemBlue
-        serizeButton.layer.cornerRadius = 15
-        serizeButton.clipsToBounds = true // 둥글 테두리 벗어나간 부분은 잘려나감
+        addSubview(seriesButton)
         
-        serizeButton.snp.makeConstraints {
+        seriesButton.snp.makeConstraints {
             $0.centerX.equalToSuperview()
             $0.top.equalToSuperview()
+            $0.height.equalTo(seriesButton.snp.width)
         }
+        
+        seriesButton.setTitle("1", for: .normal) // 우선은 하드코딩
+        seriesButton.titleLabel?.font = .systemFont(ofSize: 16)
+        seriesButton.setTitleColor(.white, for: .normal)
+        seriesButton.backgroundColor = .systemBlue
+        seriesButton.layoutIfNeeded() // 레이아웃을 강제로 업데이트
+        seriesButton.layer.cornerRadius = seriesButton.bounds.width / 2
+        seriesButton.clipsToBounds = true // 둥글 테두리 벗어나간 부분은 잘려나감
     }
 }
