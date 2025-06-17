@@ -43,11 +43,11 @@ final class BookDetailViewController: UIViewController {
                 // 첫 번째 책 제목 표시
                 bookDetailView.bookTitleView.setTitle(books[0].title)
             case .failure(let error):
-                print(error.localizedDescription)
+                // 메인 스레드에서 실행
+                DispatchQueue.main.async {
+                    self.showErrorAlert(message: error.localizedDescription)
+                }
             }
         }
     }
 }
-
-
-
