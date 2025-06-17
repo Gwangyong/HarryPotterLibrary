@@ -7,9 +7,9 @@
 
 extension BookDetailViewController {
     func setupTopTabLayout() {
-        bookTopTabView.snp.makeConstraints {
+        bookDetailView.bookTopTabView.snp.makeConstraints {
             $0.leading.trailing.equalToSuperview().inset(20)
-            $0.top.equalTo(bookTitleView.titleLabel.snp.bottom).offset(16)
+            $0.top.equalTo(bookDetailView.bookTitleView.titleLabel.snp.bottom).offset(16)
         }
     }
 }

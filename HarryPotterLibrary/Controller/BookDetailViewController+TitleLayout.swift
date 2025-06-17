@@ -7,7 +7,7 @@
 
 extension BookDetailViewController {
     func setupTitleLayout() {
-        bookTitleView.snp.makeConstraints {
+        bookDetailView.bookTitleView.snp.makeConstraints {
             $0.top.equalTo(view.safeAreaLayoutGuide).inset(10)
             $0.leading.trailing.equalToSuperview().inset(20)
         }

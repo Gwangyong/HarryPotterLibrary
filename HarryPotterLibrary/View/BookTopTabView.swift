@@ -8,7 +8,6 @@
 import UIKit
 import SnapKit
 
-/// 시리즈 버튼 관련 클래스
 final class BookTopTabView: UIView {
 
     private let seriesButton = UIButton()
