@@ -12,10 +12,11 @@ final class BookDetailView: UIView {
     private let stackView = UIStackView()
     let bookTitleView = BookTitleView(frame: .zero)
     let bookTopTabView = BookTopTabView(frame: .zero)
+    let bookInfoView = BookInfoView(frame: .zero)
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        [bookTopTabView, bookTitleView, stackView].forEach {
+        [bookTopTabView, bookTitleView, bookInfoView, stackView].forEach {
             addSubview($0)
         }
     }

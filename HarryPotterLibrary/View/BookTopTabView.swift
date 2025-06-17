@@ -14,14 +14,14 @@ final class BookTopTabView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setupUI()
+        setupBookTopTabButtonUI()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setupUI() {
+    private func setupBookTopTabButtonUI() {
         addSubview(seriesButton)
         
         seriesButton.snp.makeConstraints {

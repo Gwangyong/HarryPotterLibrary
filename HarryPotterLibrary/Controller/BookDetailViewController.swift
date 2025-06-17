@@ -20,8 +20,8 @@ final class BookDetailViewController: UIViewController {
         
         setupBookDetailLayout() // BookDetailView
         loadBooks() // 데이터 불러오기
-        setupTitleLayout() // 책 제목
-        setupTopTabLayout() // 탭 버튼
+        setupBookTitleLayout() // 책 제목
+        setupBookTopTabLayout() // 탭 버튼
     }
     
     
@@ -33,7 +33,7 @@ final class BookDetailViewController: UIViewController {
     }
     
     // MARK: - 데이터 로딩
-    func loadBooks() {
+    private func loadBooks() {
         dataService.loadBooks { [weak self] result in
             // self가 살아있는지 확인하고, 살아있을 때만 코드 실행하는 안전장치
             guard let self = self else { return }
