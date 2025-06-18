@@ -19,4 +19,12 @@ struct BookData: Codable {
 // 실제 책 정보를 담음 (title 등 실제 속성)
 struct Book: Codable {
     let title: String
+    let author: String
+    let pages: Int
+    let releaseDate: String
+    
+    enum CodingKeys: String, CodingKey {
+        case title, author, pages
+        case releaseDate = "release_date"
+    }
 }

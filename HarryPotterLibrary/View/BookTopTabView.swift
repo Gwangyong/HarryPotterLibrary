@@ -14,28 +14,33 @@ final class BookTopTabView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setupBookTopTabButtonUI()
+        setupseriesButtonLayout()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func setupBookTopTabButtonUI() {
+    // MARK: - 제약조건 설정
+    private func setupseriesButtonLayout() {
         addSubview(seriesButton)
-        
-        seriesButton.snp.makeConstraints {
-            $0.centerX.equalToSuperview()
-            $0.top.equalToSuperview()
-            $0.height.equalTo(seriesButton.snp.width)
-        }
-        
+    
         seriesButton.setTitle("1", for: .normal) // 우선은 하드코딩
         seriesButton.titleLabel?.font = .systemFont(ofSize: 16)
         seriesButton.setTitleColor(.white, for: .normal)
         seriesButton.backgroundColor = .systemBlue
+        
+        seriesButton.snp.makeConstraints {
+            // BookTopTableView의 top으로부터 16 떨어짐.
+            // StackView로 인해 TtileView의 bottom과 16 떨어진 것과 동일
+            $0.top.bottom.equalToSuperview()
+            $0.centerX.equalToSuperview()
+            // TODO: 지금은 버튼 크기 자동으로 20 이상 떨어짐. 추후에 버튼 추가하면서 필요하면 수정
+        }
+        
         seriesButton.layoutIfNeeded() // 레이아웃을 강제로 업데이트
-        seriesButton.layer.cornerRadius = seriesButton.bounds.width / 2
+        // TODO: width 값 주고 / 2 하려니까 안된다.. 나중에 수정하자
+        seriesButton.layer.cornerRadius = 15
         seriesButton.clipsToBounds = true // 둥글 테두리 벗어나간 부분은 잘려나감
     }
 }

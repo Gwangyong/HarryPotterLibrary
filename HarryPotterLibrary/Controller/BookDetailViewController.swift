@@ -18,15 +18,13 @@ final class BookDetailViewController: UIViewController {
         view.backgroundColor = .systemBackground
         view.addSubview(bookDetailView)
         
-        setupBookDetailLayout() // BookDetailView
+        setupBookDetailViewLayout() // BookDetailView
         loadBooks() // 데이터 불러오기
-        setupBookTitleLayout() // 책 제목
-        setupBookTopTabLayout() // 탭 버튼
     }
     
     
     // MARK: - BookDetailView 제약 조건
-    private func setupBookDetailLayout() {
+    private func setupBookDetailViewLayout() {
         bookDetailView.snp.makeConstraints {
             $0.edges.equalTo(view.safeAreaLayoutGuide)
         }
@@ -41,7 +39,9 @@ final class BookDetailViewController: UIViewController {
             switch result {
             case .success(let books):
                 // 첫 번째 책 제목 표시
-                bookDetailView.bookTitleView.setTitle(books[0].title)
+                let book = books[0]
+                bookDetailView.bookTitleView.configure(with: book)
+                bookDetailView.bookInfoView.configure(with: book, index: 0)
             case .failure(let error):
                 // 메인 스레드에서 실행
                 DispatchQueue.main.async {

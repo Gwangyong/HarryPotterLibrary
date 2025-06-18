@@ -14,27 +14,32 @@ final class BookTitleView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setupBookTitleLabelUI()
+        setupTitleLabelLayout()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func setupBookTitleLabelUI() {
+    /// Book의 title 속성을 BookTitleView의 titleLabel에 설정하는 메서드
+    /// - Parameter book: 제목 정보를 포함한 Book 인스턴스
+    func configure(with book: Book) {
+        titleLabel.text = book.title
+    }
+    
+    // MARK: - 제약조건 설정
+    private func setupTitleLabelLayout() {
         addSubview(titleLabel)
+        
         titleLabel.font = UIFont.boldSystemFont(ofSize: 24)
         titleLabel.textAlignment = .center
         // 텍스트 줄 수 제한 없이 필요한 만큼 줄바꿈
         titleLabel.numberOfLines = 0
         
         titleLabel.snp.makeConstraints {
-            $0.top.bottom.equalToSuperview()
-            $0.leading.trailing.equalToSuperview()
+            $0.top.equalToSuperview().offset(10)
+            $0.leading.trailing.equalToSuperview().inset(20)
+            $0.bottom.equalToSuperview()
         }
-    }
-    
-    func setTitle(_ title: String) {
-        titleLabel.text = title
     }
 }
