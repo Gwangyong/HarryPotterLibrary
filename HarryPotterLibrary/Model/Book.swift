@@ -22,9 +22,11 @@ struct Book: Codable {
     let author: String
     let pages: Int
     let releaseDate: String
+    let dedication: String
+    let summary: String
     
     enum CodingKeys: String, CodingKey {
-        case title, author, pages
+        case title, author, pages, dedication, summary
         case releaseDate = "release_date"
     }
 }

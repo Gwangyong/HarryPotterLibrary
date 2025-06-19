@@ -18,12 +18,12 @@ final class BookDetailViewController: UIViewController {
         view.backgroundColor = .systemBackground
         view.addSubview(bookDetailView)
         
-        setupLayout()
+        setupBookDetailViewLayout()
         loadBooks()
     }
     
     // MARK: - BookDetailView 제약 조건
-    private func setupLayout() {
+    private func setupBookDetailViewLayout() {
         bookDetailView.snp.makeConstraints {
             $0.edges.equalTo(view.safeAreaLayoutGuide)
         }
@@ -42,6 +42,8 @@ final class BookDetailViewController: UIViewController {
                 let book = books[index]
                 bookDetailView.bookTitleView.configure(with: book)
                 bookDetailView.bookInfoView.configure(with: book, index: index)
+                bookDetailView.bookDedicationView.configure(with: book)
+                bookDetailView.bookSummaryView.configure(with: book)
             case .failure(let error):
                 // 메인 스레드에서 실행
                 DispatchQueue.main.async {
