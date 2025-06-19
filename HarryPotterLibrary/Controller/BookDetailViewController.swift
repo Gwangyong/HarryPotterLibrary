@@ -38,9 +38,10 @@ final class BookDetailViewController: UIViewController {
             switch result {
             case .success(let books):
                 // 첫 번째 책 제목 표시
-                let book = books[0]
+                let index = 0
+                let book = books[index]
                 bookDetailView.bookTitleView.configure(with: book)
-                bookDetailView.bookInfoView.configure(with: book, index: 0)
+                bookDetailView.bookInfoView.configure(with: book, index: index)
             case .failure(let error):
                 // 메인 스레드에서 실행
                 DispatchQueue.main.async {
