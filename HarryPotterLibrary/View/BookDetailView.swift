@@ -55,7 +55,7 @@ final class BookDetailView: UIView {
         // bookTopTabView
         bookTopTabView.snp.makeConstraints {
             $0.top.equalTo(bookTitleView.snp.bottom).offset(16)
-            $0.leading.trailing.equalToSuperview()
+            $0.leading.trailing.equalToSuperview().inset(20)
         }
         
         // InfoView가 들어간 stackView

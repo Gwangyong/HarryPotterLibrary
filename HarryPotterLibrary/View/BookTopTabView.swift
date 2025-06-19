@@ -31,15 +31,12 @@ final class BookTopTabView: UIView {
         seriesButton.backgroundColor = .systemBlue
         
         seriesButton.snp.makeConstraints {
-            // BookTopTableView의 top으로부터 16 떨어짐.
-            // StackView로 인해 TtileView의 bottom과 16 떨어진 것과 동일
-            $0.top.bottom.equalToSuperview()
             $0.centerX.equalToSuperview()
-            // TODO: 지금은 버튼 크기 자동으로 20 이상 떨어짐. 추후에 버튼 추가하면서 필요하면 수정
+            $0.top.bottom.equalToSuperview()
+            $0.width.height.equalTo(40)
         }
         
-        // TODO: width 값 주고 / 2 하려니까 안된다.. 나중에 수정하자
-        seriesButton.layer.cornerRadius = 15
+        seriesButton.layer.cornerRadius = 20
         seriesButton.clipsToBounds = true // 둥글 테두리 벗어나간 부분은 잘려나감
     }
 }
