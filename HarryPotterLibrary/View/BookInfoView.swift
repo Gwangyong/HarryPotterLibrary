@@ -73,7 +73,8 @@ final class BookInfoView: UIView {
     // 가로 스택뷰(horizentalStackView) 제약조건 설정
     private func setupHorizentalStackViewLayout() {
         horizentalStackView.axis = .horizontal
-        horizentalStackView.spacing = 16 // FIXME: 우선은 10으로 넣으라고 하심
+        horizentalStackView.spacing = 16
+        horizentalStackView.alignment = .top
         
         horizentalStackView.snp.makeConstraints {
             $0.top.bottom.equalToSuperview()
@@ -95,7 +96,7 @@ final class BookInfoView: UIView {
     // 세로 스택뷰(VerticalStackView) 제약조건 설정
     private func setupVerticalStackViewLayout() {
         verticalStackView.axis = .vertical
-        verticalStackView.spacing = 16 // FIXME: 우선은 10으로 넣으라고 하심 (얘는 내가 못찾는걸지도..)
+        verticalStackView.spacing = 6
     }
     
     // 제목 라벨(InfoTitleLabel) 제약조건 설정
@@ -159,8 +160,8 @@ final class BookInfoView: UIView {
         releaseDateTitleLabel.setContentHuggingPriority(.required, for: .horizontal)
         releaseDateTitleLabel.setContentCompressionResistancePriority(.required, for: .horizontal)
 
-        releaseDateTitleLabel.setContentHuggingPriority(.defaultLow, for: .horizontal)
-        releaseDateTitleLabel.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
+        releaseDateValueLabel.setContentHuggingPriority(.defaultLow, for: .horizontal)
+        releaseDateValueLabel.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
         
         let releaseDateRow = makeReleaseDateRowStackView()
         verticalStackView.addArrangedSubview(releaseDateRow)
@@ -187,8 +188,8 @@ final class BookInfoView: UIView {
         pageCountTitleLabel.setContentHuggingPriority(.required, for: .horizontal)
         pageCountTitleLabel.setContentCompressionResistancePriority(.required, for: .horizontal)
 
-        pageCountTitleLabel.setContentHuggingPriority(.defaultLow, for: .horizontal)
-        pageCountTitleLabel.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
+        pageCountValueLabel.setContentHuggingPriority(.defaultLow, for: .horizontal)
+        pageCountValueLabel.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
         
         let pageCountRow = makePageCountRowStackView()
         verticalStackView.addArrangedSubview(pageCountRow)

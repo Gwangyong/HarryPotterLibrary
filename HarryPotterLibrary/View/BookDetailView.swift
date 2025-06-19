@@ -55,7 +55,6 @@ final class BookDetailView: UIView {
         stackView.snp.makeConstraints {
             $0.top.equalTo(bookTopTabView.snp.bottom).offset(20)
             $0.leading.trailing.equalTo(safeAreaLayoutGuide)
-            $0.bottom.lessThanOrEqualToSuperview() // 콘텐츠가 넘칠 경우 대비
         }
     }
 }

@@ -10,7 +10,7 @@ import UIKit
 
 final class BookDetailViewController: UIViewController {
     
-    let dataService = DataService()
+    let bookLeader = BookLeader()
     let bookDetailView = BookDetailView()
     
     override func viewDidLoad() {
@@ -18,13 +18,12 @@ final class BookDetailViewController: UIViewController {
         view.backgroundColor = .systemBackground
         view.addSubview(bookDetailView)
         
-        setupBookDetailViewLayout() // BookDetailView
-        loadBooks() // 데이터 불러오기
+        setupLayout()
+        loadBooks()
     }
     
-    
     // MARK: - BookDetailView 제약 조건
-    private func setupBookDetailViewLayout() {
+    private func setupLayout() {
         bookDetailView.snp.makeConstraints {
             $0.edges.equalTo(view.safeAreaLayoutGuide)
         }
@@ -32,7 +31,7 @@ final class BookDetailViewController: UIViewController {
     
     // MARK: - 데이터 로딩
     private func loadBooks() {
-        dataService.loadBooks { [weak self] result in
+        bookLeader.loadBooks { [weak self] result in
             // self가 살아있는지 확인하고, 살아있을 때만 코드 실행하는 안전장치
             guard let self = self else { return }
             

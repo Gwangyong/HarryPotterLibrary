@@ -38,7 +38,6 @@ final class BookTopTabView: UIView {
             // TODO: 지금은 버튼 크기 자동으로 20 이상 떨어짐. 추후에 버튼 추가하면서 필요하면 수정
         }
         
-        seriesButton.layoutIfNeeded() // 레이아웃을 강제로 업데이트
         // TODO: width 값 주고 / 2 하려니까 안된다.. 나중에 수정하자
         seriesButton.layer.cornerRadius = 15
         seriesButton.clipsToBounds = true // 둥글 테두리 벗어나간 부분은 잘려나감
