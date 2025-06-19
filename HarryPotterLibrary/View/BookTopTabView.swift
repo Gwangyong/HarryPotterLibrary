@@ -8,32 +8,38 @@
 import UIKit
 import SnapKit
 
-/// 시리즈 버튼 관련 클래스
 final class BookTopTabView: UIView {
 
-    private let serizeButton = UIButton()
+    private let seriesButton = UIButton()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setupUI()
+        setupseriesButtonLayout()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setupUI() {
-        addSubview(serizeButton)
-        serizeButton.setTitle("1", for: .normal) // 우선은 하드코딩
-        serizeButton.titleLabel?.font = .systemFont(ofSize: 16)
-        serizeButton.setTitleColor(.white, for: .normal)
-        serizeButton.backgroundColor = .systemBlue
-        serizeButton.layer.cornerRadius = 15
-        serizeButton.clipsToBounds = true // 둥글 테두리 벗어나간 부분은 잘려나감
+    // MARK: - 제약조건 설정
+    private func setupseriesButtonLayout() {
+        addSubview(seriesButton)
+    
+        seriesButton.setTitle("1", for: .normal) // 우선은 하드코딩
+        seriesButton.titleLabel?.font = .systemFont(ofSize: 16)
+        seriesButton.setTitleColor(.white, for: .normal)
+        seriesButton.backgroundColor = .systemBlue
         
-        serizeButton.snp.makeConstraints {
+        seriesButton.snp.makeConstraints {
+            // BookTopTableView의 top으로부터 16 떨어짐.
+            // StackView로 인해 TtileView의 bottom과 16 떨어진 것과 동일
+            $0.top.bottom.equalToSuperview()
             $0.centerX.equalToSuperview()
-            $0.top.equalToSuperview()
+            // TODO: 지금은 버튼 크기 자동으로 20 이상 떨어짐. 추후에 버튼 추가하면서 필요하면 수정
         }
+        
+        // TODO: width 값 주고 / 2 하려니까 안된다.. 나중에 수정하자
+        seriesButton.layer.cornerRadius = 15
+        seriesButton.clipsToBounds = true // 둥글 테두리 벗어나간 부분은 잘려나감
     }
 }

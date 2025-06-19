@@ -1,0 +1,221 @@
+//
+//  BookInfoView.swift
+//  HarryPotterLibrary
+//
+//  Created by 서광용 on 6/17/25.
+// MARK: 책 표지, 저자, 출간일, 페이지 수 View
+
+import SnapKit
+import UIKit
+
+final class BookInfoView: UIView {
+    private let horizentalStackView = UIStackView()
+    private let imageView = UIImageView()
+    private let verticalStackView = UIStackView()
+    
+    private let infoTitleLabel = UILabel()
+    
+    private let authorTitleLabel = UILabel() // Author
+    private let authorValueLabel = UILabel() // 저자(J.K Rowling)
+    
+    private let releaseDateTitleLabel = UILabel() // Released
+    private let releaseDateValueLabel = UILabel() // 출간일(June 26, 1997)
+    
+    private let pageCountTitleLabel = UILabel() // Pages
+    private let pageCountValueLabel = UILabel() // 페이지 수(223)
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setupUI()
+        setupLayout()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    // MARK: - 뷰 계층 구성
+    private func setupUI() {
+        addSubview(horizentalStackView)
+        
+        // 가로 스택뷰에 이미지와 텍스트 영역(verticalStackView) 추가
+        [imageView, verticalStackView].forEach {
+            horizentalStackView.addArrangedSubview($0)
+        }
+    }
+    
+    // MARK: - 제약조건 설정
+    private func setupLayout() {
+         setupHorizentalStackViewLayout()
+         setupImageViewLayout()
+         setupVerticalStackViewLayout()
+         setupInfoTitleLabelLayout()
+         setupAuthorLabelLayout()
+         setupReleaseDateLabelLayout()
+         setupPageCountLabelLayout()
+    }
+    
+    /// Book 모델 데이터를 받아서 BookInfoView 내부 라벨과 이미지 뷰에 설정하는 메서드
+    /// - Parameters:
+    ///   - book: 표시할 책 정보(Book 타입)
+    ///   - index: 시리즈 번호(0부터 시작)로, 이미지 에셋 이름 매칭에 사용됨 (예: harrypotter1 ~ harrypotter7)
+    func configure(with book: Book, index: Int) {
+        infoTitleLabel.text = book.title
+        authorValueLabel.text = book.author
+        releaseDateValueLabel.text = formatDate(book.releaseDate)
+        pageCountValueLabel.text = "\(book.pages)"
+        
+        // 시리즈 번호로 이름 매칭해서 이미지 가져오기
+        let imageName = "harrypotter\(index + 1)"
+        imageView.image = UIImage(named: imageName)
+    }
+    
+    // 가로 스택뷰(horizentalStackView) 제약조건 설정
+    private func setupHorizentalStackViewLayout() {
+        horizentalStackView.axis = .horizontal
+        horizentalStackView.spacing = 16
+        horizentalStackView.alignment = .top
+        
+        horizentalStackView.snp.makeConstraints {
+            $0.top.bottom.equalToSuperview()
+            $0.leading.trailing.equalToSuperview().inset(20)
+        }
+    }
+    
+    // 이미지 뷰(ImageView) 제약조건 설정
+    private func setupImageViewLayout() {
+        imageView.contentMode = .scaleAspectFill // 비율 유지하며 프레임을 꽉채움
+        imageView.clipsToBounds = true // 넘어가는 부분은 자름
+        
+        imageView.snp.makeConstraints {
+            $0.width.equalTo(100)
+            $0.height.equalTo(imageView.snp.width).multipliedBy(1.5) // height = width x 1.5
+        }
+    }
+    
+    // 세로 스택뷰(VerticalStackView) 제약조건 설정
+    private func setupVerticalStackViewLayout() {
+        verticalStackView.axis = .vertical
+        verticalStackView.spacing = 6
+    }
+    
+    // 제목 라벨(InfoTitleLabel) 제약조건 설정
+    private func setupInfoTitleLabelLayout() {
+        infoTitleLabel.font = .boldSystemFont(ofSize: 20)
+        infoTitleLabel.textColor = .black
+        infoTitleLabel.numberOfLines = 0
+        
+        // verticalStackView에 추가
+        verticalStackView.addArrangedSubview(infoTitleLabel)
+    }
+    
+    // 저자 라벨(AuthorLabel) Row StackView 생성
+    private func makeAuthorRowStackView() -> UIStackView {
+        // Author 타이틀과 저자 이름을 담은 가로 스택뷰 생성
+        let authorRowStack = UIStackView(arrangedSubviews: [authorTitleLabel, authorValueLabel])
+        authorRowStack.axis = .horizontal
+        authorRowStack.spacing = 8
+        return authorRowStack
+    }
+    
+    // 저자 라벨(AuthorLabel) 제약조건 설정
+    private func setupAuthorLabelLayout() {
+        authorTitleLabel.font = .boldSystemFont(ofSize: 16)
+        authorTitleLabel.textColor = .black
+        authorTitleLabel.text = "Author" // 변하지 않아서 하드코딩
+        
+        authorValueLabel.font = .systemFont(ofSize: 18)
+        authorValueLabel.textColor = .darkGray
+
+        
+        // 우선순위 설정
+        authorTitleLabel.setContentHuggingPriority(.required, for: .horizontal)
+        authorTitleLabel.setContentCompressionResistancePriority(.required, for: .horizontal)
+
+        authorValueLabel.setContentHuggingPriority(.defaultLow, for: .horizontal)
+        authorValueLabel.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
+        
+        let authorRow = makeAuthorRowStackView()
+        verticalStackView.addArrangedSubview(authorRow)
+    }
+    
+    // 출간일 라벨(ReleaseDateLabel) Row StackView 생성
+    private func makeReleaseDateRowStackView() -> UIStackView {
+        let releaseDateRowStack = UIStackView(arrangedSubviews: [releaseDateTitleLabel, releaseDateValueLabel])
+        releaseDateRowStack.axis = .horizontal
+        releaseDateRowStack.spacing = 8
+        return releaseDateRowStack
+    }
+    
+    // 출간일 라벨(ReleaseDateLabel) 제약조건 설정
+    private func setupReleaseDateLabelLayout() {
+        releaseDateTitleLabel.font = .boldSystemFont(ofSize: 14)
+        releaseDateTitleLabel.textColor = .black
+        releaseDateTitleLabel.text = "Released"
+        
+        releaseDateValueLabel.font = .systemFont(ofSize: 14)
+        releaseDateValueLabel.textColor = .gray
+        
+        // 우선순위 설정
+        releaseDateTitleLabel.setContentHuggingPriority(.required, for: .horizontal)
+        releaseDateTitleLabel.setContentCompressionResistancePriority(.required, for: .horizontal)
+
+        releaseDateValueLabel.setContentHuggingPriority(.defaultLow, for: .horizontal)
+        releaseDateValueLabel.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
+        
+        let releaseDateRow = makeReleaseDateRowStackView()
+        verticalStackView.addArrangedSubview(releaseDateRow)
+    }
+    
+    // 페이지 수 라벨(PageCountLabel) Row StackView 생성
+    private func makePageCountRowStackView() -> UIStackView {
+        let pageCountRowStackView = UIStackView(arrangedSubviews: [pageCountTitleLabel, pageCountValueLabel])
+        pageCountRowStackView.axis = .horizontal
+        pageCountRowStackView.spacing = 8
+        return pageCountRowStackView
+    }
+    
+    // 페이지 수 라벨(PageCountLabel) 제약조건 설정
+    private func setupPageCountLabelLayout() {
+        pageCountTitleLabel.font = .boldSystemFont(ofSize: 14)
+        pageCountTitleLabel.textColor = .black
+        pageCountTitleLabel.text = "Pages"
+        
+        pageCountValueLabel.font = .systemFont(ofSize: 14)
+        pageCountValueLabel.textColor = .gray
+        
+        // 우선순위 설정
+        pageCountTitleLabel.setContentHuggingPriority(.required, for: .horizontal)
+        pageCountTitleLabel.setContentCompressionResistancePriority(.required, for: .horizontal)
+
+        pageCountValueLabel.setContentHuggingPriority(.defaultLow, for: .horizontal)
+        pageCountValueLabel.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
+        
+        let pageCountRow = makePageCountRowStackView()
+        verticalStackView.addArrangedSubview(pageCountRow)
+    }
+    
+    /// 주어진 날짜 문자열("yyyy-MM-dd" 형식)을 "MMMM d, yyyy" 형식으로 변환합니다.
+    /// - Parameter dateString: 변환할 원본 날짜 문자열 (예: "1997-06-26")
+    /// - Returns: "June 26, 1997" 형식으로 변환된 문자열. 파싱 실패 시 원본 문자열 그대로 반환됩니다.
+    private func formatDate(_ dateString: String) -> String {
+        // 입력된 문자열 형식 설정 ("yyyy-MM-dd" 형식)
+        let inputFormatter = DateFormatter()
+        inputFormatter.dateFormat = "yyyy-MM-dd"
+
+        // 출력할 문자열 형식 설정 ("MMMM d, yyyy" → 예: June 26, 1997)
+        // MMMM: 월 전체 이름(June), d: 일, yyyy: 연도
+        let outputFormatter = DateFormatter()
+        outputFormatter.dateFormat = "MMMM d, yyyy"
+        outputFormatter.locale = Locale(identifier: "en_US")  // locals를 en_US로 지정해줘야 월이 영어 이름이 나옴
+
+        // 입력 문자열을 변환 시도
+        if let date = inputFormatter.date(from: dateString) {
+            // 성공시 지정된 포맷으로 문자열 반환
+            return outputFormatter.string(from: date)
+        } else {
+            // 파싱 실패 시 원본 그대로 반환
+            return dateString
+        }
+    }
+}

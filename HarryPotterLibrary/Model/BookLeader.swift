@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class DataService {
+final class BookLeader {
     
     private enum DataError: Error {
         case fileNotFound
