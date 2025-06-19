@@ -16,13 +16,13 @@ final class BookInfoView: UIView {
     private let infoTitleLabel = UILabel()
     
     private let authorTitleLabel = UILabel() // Author
-    private let authorValueLabel = UILabel() // 저자(J.K Rowling)
+    private let authorContentLabel = UILabel() // 저자(J.K Rowling)
     
     private let releaseDateTitleLabel = UILabel() // Released
-    private let releaseDateValueLabel = UILabel() // 출간일(June 26, 1997)
+    private let releaseDateContentLabel = UILabel() // 출간일(June 26, 1997)
     
     private let pageCountTitleLabel = UILabel() // Pages
-    private let pageCountValueLabel = UILabel() // 페이지 수(223)
+    private let pageCountContentLabel = UILabel() // 페이지 수(223)
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -61,9 +61,9 @@ final class BookInfoView: UIView {
     ///   - index: 시리즈 번호(0부터 시작)로, 이미지 에셋 이름 매칭에 사용됨 (예: harrypotter1 ~ harrypotter7)
     func configure(with book: Book, index: Int) {
         infoTitleLabel.text = book.title
-        authorValueLabel.text = book.author
-        releaseDateValueLabel.text = formatDate(book.releaseDate)
-        pageCountValueLabel.text = "\(book.pages)"
+        authorContentLabel.text = book.author
+        releaseDateContentLabel.text = formatDate(book.releaseDate)
+        pageCountContentLabel.text = "\(book.pages)"
         
         // 시리즈 번호로 이름 매칭해서 이미지 가져오기
         let imageName = "harrypotter\(index + 1)"
@@ -112,7 +112,7 @@ final class BookInfoView: UIView {
     // 저자 라벨(AuthorLabel) Row StackView 생성
     private func makeAuthorRowStackView() -> UIStackView {
         // Author 타이틀과 저자 이름을 담은 가로 스택뷰 생성
-        let authorRowStack = UIStackView(arrangedSubviews: [authorTitleLabel, authorValueLabel])
+        let authorRowStack = UIStackView(arrangedSubviews: [authorTitleLabel, authorContentLabel])
         authorRowStack.axis = .horizontal
         authorRowStack.spacing = 8
         return authorRowStack
@@ -124,16 +124,15 @@ final class BookInfoView: UIView {
         authorTitleLabel.textColor = .black
         authorTitleLabel.text = "Author" // 변하지 않아서 하드코딩
         
-        authorValueLabel.font = .systemFont(ofSize: 18)
-        authorValueLabel.textColor = .darkGray
-
+        authorContentLabel.font = .systemFont(ofSize: 18)
+        authorContentLabel.textColor = .darkGray
         
         // 우선순위 설정
         authorTitleLabel.setContentHuggingPriority(.required, for: .horizontal)
         authorTitleLabel.setContentCompressionResistancePriority(.required, for: .horizontal)
 
-        authorValueLabel.setContentHuggingPriority(.defaultLow, for: .horizontal)
-        authorValueLabel.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
+        authorContentLabel.setContentHuggingPriority(.defaultLow, for: .horizontal)
+        authorContentLabel.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
         
         let authorRow = makeAuthorRowStackView()
         verticalStackView.addArrangedSubview(authorRow)
@@ -141,7 +140,7 @@ final class BookInfoView: UIView {
     
     // 출간일 라벨(ReleaseDateLabel) Row StackView 생성
     private func makeReleaseDateRowStackView() -> UIStackView {
-        let releaseDateRowStack = UIStackView(arrangedSubviews: [releaseDateTitleLabel, releaseDateValueLabel])
+        let releaseDateRowStack = UIStackView(arrangedSubviews: [releaseDateTitleLabel, releaseDateContentLabel])
         releaseDateRowStack.axis = .horizontal
         releaseDateRowStack.spacing = 8
         return releaseDateRowStack
@@ -153,15 +152,15 @@ final class BookInfoView: UIView {
         releaseDateTitleLabel.textColor = .black
         releaseDateTitleLabel.text = "Released"
         
-        releaseDateValueLabel.font = .systemFont(ofSize: 14)
-        releaseDateValueLabel.textColor = .gray
+        releaseDateContentLabel.font = .systemFont(ofSize: 14)
+        releaseDateContentLabel.textColor = .gray
         
         // 우선순위 설정
         releaseDateTitleLabel.setContentHuggingPriority(.required, for: .horizontal)
         releaseDateTitleLabel.setContentCompressionResistancePriority(.required, for: .horizontal)
 
-        releaseDateValueLabel.setContentHuggingPriority(.defaultLow, for: .horizontal)
-        releaseDateValueLabel.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
+        releaseDateContentLabel.setContentHuggingPriority(.defaultLow, for: .horizontal)
+        releaseDateContentLabel.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
         
         let releaseDateRow = makeReleaseDateRowStackView()
         verticalStackView.addArrangedSubview(releaseDateRow)
@@ -169,7 +168,7 @@ final class BookInfoView: UIView {
     
     // 페이지 수 라벨(PageCountLabel) Row StackView 생성
     private func makePageCountRowStackView() -> UIStackView {
-        let pageCountRowStackView = UIStackView(arrangedSubviews: [pageCountTitleLabel, pageCountValueLabel])
+        let pageCountRowStackView = UIStackView(arrangedSubviews: [pageCountTitleLabel, pageCountContentLabel])
         pageCountRowStackView.axis = .horizontal
         pageCountRowStackView.spacing = 8
         return pageCountRowStackView
@@ -181,15 +180,15 @@ final class BookInfoView: UIView {
         pageCountTitleLabel.textColor = .black
         pageCountTitleLabel.text = "Pages"
         
-        pageCountValueLabel.font = .systemFont(ofSize: 14)
-        pageCountValueLabel.textColor = .gray
+        pageCountContentLabel.font = .systemFont(ofSize: 14)
+        pageCountContentLabel.textColor = .gray
         
         // 우선순위 설정
         pageCountTitleLabel.setContentHuggingPriority(.required, for: .horizontal)
         pageCountTitleLabel.setContentCompressionResistancePriority(.required, for: .horizontal)
 
-        pageCountValueLabel.setContentHuggingPriority(.defaultLow, for: .horizontal)
-        pageCountValueLabel.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
+        pageCountContentLabel.setContentHuggingPriority(.defaultLow, for: .horizontal)
+        pageCountContentLabel.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
         
         let pageCountRow = makePageCountRowStackView()
         verticalStackView.addArrangedSubview(pageCountRow)
