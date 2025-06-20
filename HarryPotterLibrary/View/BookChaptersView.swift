@@ -1,0 +1,77 @@
+//
+//  BookChaptersView.swift
+//  HarryPotterLibrary
+//
+//  Created by 서광용 on 6/20/25.
+// MARK: - 목차 View
+
+import UIKit
+import SnapKit
+
+class BookChaptersView: UIView {
+    private let verticalStackView = UIStackView()
+    
+    private let chaptersTitleLabel = UILabel()
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setupUI()
+        setupLayout()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    // MARK: - 뷰 계층 구성
+    private func setupUI() {
+        addSubview(verticalStackView)
+        verticalStackView.addArrangedSubview(chaptersTitleLabel)
+    }
+    
+    // MARK: - 제약조건 설정
+    private func setupLayout() {
+        setupVerticalStackViewLayout()
+        setupChaptersTitleLabelLayout()
+    }
+    
+    /// 전달받은 Chapter 배열을 UILabel로 생성해 스택뷰에 추가하는 메서드
+    /// - Parameter chapters: 표시할 Chapter 배열
+    func configure(with chapters: [Chapter]) {
+        verticalStackView.arrangedSubviews
+            .dropFirst() // 첫 번째는 제목 라벨(chaptersLabel)이니까 냅둠
+            .forEach { $0.removeFromSuperview() }
+
+        // 챕터들 반복해서 UILabel 생성 후 추가
+        chapters.enumerated().forEach { index, chapter in
+            let label = setupChapterLabelLayout(title: chapter.title)
+            verticalStackView.addArrangedSubview(label)
+        }
+    }
+    
+    // 세로 스택뷰(VerticalStackView) 제약조건 설정
+    private func setupVerticalStackViewLayout() {
+        verticalStackView.axis = .vertical
+        verticalStackView.spacing = 8
+        
+        verticalStackView.snp.makeConstraints {
+            $0.directionalEdges.equalToSuperview()
+        }
+    }
+    
+    // 목차 제목
+    private func setupChaptersTitleLabelLayout() {
+        chaptersTitleLabel.text = "Chapters"
+        chaptersTitleLabel.font = .boldSystemFont(ofSize: 18)
+        chaptersTitleLabel.textColor = .black
+    }
+    
+    private func setupChapterLabelLayout(title: String) -> UILabel {
+        let label = UILabel()
+        label.text = title
+        label.font = .systemFont(ofSize: 14)
+        label.textColor = .darkGray
+        label.numberOfLines = 0
+        return label
+    }
+}

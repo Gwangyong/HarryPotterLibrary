@@ -52,16 +52,15 @@ final class BookSummaryView: UIView {
         verticalStackView.spacing = 8
         
         verticalStackView.snp.makeConstraints {
-            $0.top.bottom.equalToSuperview()
-            $0.leading.trailing.equalToSuperview()
+            $0.directionalEdges.equalToSuperview()
         }
     }
     
     // 요약 제목
     private func setupSummaryTitleLabelLayout() {
+        summaryTitleLabel.text = "Summary"
         summaryTitleLabel.font = .boldSystemFont(ofSize: 18)
         summaryTitleLabel.textColor = .black
-        summaryTitleLabel.text = "Summary"
         summaryTitleLabel.numberOfLines = 1
     }
     

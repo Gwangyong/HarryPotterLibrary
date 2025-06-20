@@ -77,8 +77,7 @@ final class BookInfoView: UIView {
         horizentalStackView.alignment = .top
         
         horizentalStackView.snp.makeConstraints {
-            $0.top.bottom.equalToSuperview()
-            $0.leading.trailing.equalToSuperview()
+            $0.directionalEdges.equalToSuperview()
         }
     }
     

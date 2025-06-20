@@ -18,6 +18,7 @@ final class BookDetailView: UIView {
     let bookInfoView = BookInfoView(frame: .zero)
     let bookDedicationView = BookDedicationView(frame: .zero)
     let bookSummaryView = BookSummaryView(frame: .zero)
+    let bookChaptersView = BookChaptersView(frame: .zero)
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -36,51 +37,67 @@ final class BookDetailView: UIView {
             addSubview($0)
         }
         
-        // 스크롤 바가 보이지 않도록 구현
-        scrollView.showsHorizontalScrollIndicator = false
-        scrollView.showsVerticalScrollIndicator = false
-        
         scrollView.addSubview(contentView)
         contentView.addSubview(stackView)
         
         // stackView 내부 arrangedSubview 추가
-        [bookInfoView, bookDedicationView, bookSummaryView].forEach {
+        [bookInfoView, bookDedicationView, bookSummaryView, bookChaptersView].forEach {
             stackView.addArrangedSubview($0)
         }
-            
-        // stackView 세부 설정
-        stackView.axis = .vertical
-        stackView.spacing = 24 // 하위 View들 사이 간격을 24로 설정
     }
     
     // MARK: - 제약조건 설정
     private func setupLayout() {
-        // bookTitleView
+        setupBookTitleViewLayout()
+        setupBookTopTabViewLayout()
+        setupScrollViewLayout()
+        setupContentViewLayout()
+        setupStackViewLayout()
+    }
+    
+    // bookTitleView
+    private func setupBookTitleViewLayout() {
         bookTitleView.snp.makeConstraints {
             $0.top.equalTo(safeAreaLayoutGuide)
             $0.leading.trailing.equalToSuperview()
         }
-        
-        // bookTopTabView
+    }
+    
+    // bookTopTabView
+    private func setupBookTopTabViewLayout() {
         bookTopTabView.snp.makeConstraints {
             $0.top.equalTo(bookTitleView.snp.bottom).offset(16)
             $0.leading.trailing.equalToSuperview().inset(20)
         }
+    }
+    
+    // scrollView
+    private func setupScrollViewLayout() {
+        // 스크롤 바가 보이지 않도록 구현
+        scrollView.showsHorizontalScrollIndicator = false
+        scrollView.showsVerticalScrollIndicator = false
         
-        // scrollView
         scrollView.snp.makeConstraints {
             $0.top.equalTo(bookTopTabView.snp.bottom).offset(16)
             $0.leading.trailing.equalTo(safeAreaLayoutGuide).inset(20)
             $0.bottom.equalToSuperview()
             $0.width.equalTo(scrollView.contentLayoutGuide) // 가로 고정
         }
-        
-        // contentView
+    }
+    
+    //contentView
+    private func setupContentViewLayout() {
         contentView.snp.makeConstraints {
             $0.directionalEdges.equalTo(scrollView.contentLayoutGuide)
         }
+    }
+    
+    // stackView
+    private func setupStackViewLayout() {
+        // stackView 세부 설정
+        stackView.axis = .vertical
+        stackView.spacing = 24 // 하위 View들 사이 간격을 24로 설정
         
-        // stackView
         stackView.snp.makeConstraints {
             $0.directionalEdges.equalToSuperview()
         }

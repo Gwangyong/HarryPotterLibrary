@@ -52,16 +52,15 @@ final class BookDedicationView: UIView {
         verticalStackView.spacing = 8 // 타이틀(Dedication)과 헌정사(내용) 사이 간격 8
         
         verticalStackView.snp.makeConstraints {
-            $0.top.bottom.equalToSuperview()
-            $0.leading.trailing.equalToSuperview()
+            $0.directionalEdges.equalToSuperview()
         }
     }
 
     // 타이틀 제목
     private func setupDedicationTitleLabelLayout() {
+        dedicationTitleLabel.text = "Dedication"
         dedicationTitleLabel.font = .boldSystemFont(ofSize: 18)
         dedicationTitleLabel.textColor = .black
-        dedicationTitleLabel.text = "Dedication"
         dedicationTitleLabel.numberOfLines = 1
     }
     
