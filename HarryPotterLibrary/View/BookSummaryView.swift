@@ -3,13 +3,13 @@
 //  HarryPotterLibrary
 //
 //  Created by 서광용 on 6/19/25.
-// MARK: 책 요약 View
+// MARK: - 책 요약 View
 
 import UIKit
 import SnapKit
 
 final class BookSummaryView: UIView {
-    private let verticalStackView = UIStackView()
+    private let summaryStackView = UIStackView()
     
     private let summaryTitleLabel = UILabel()
     private let summaryContentLabel = UILabel()
@@ -26,16 +26,16 @@ final class BookSummaryView: UIView {
     
     // MARK: - 뷰 계층 구성
     private func setupUI() {
-        addSubview(verticalStackView)
+        addSubview(summaryStackView)
         
         [summaryTitleLabel, summaryContentLabel].forEach {
-            verticalStackView.addArrangedSubview($0)
+            summaryStackView.addArrangedSubview($0)
         }
     }
     
     // MARK: - 제약조건 설정
     private func setupLayout() {
-        setupVerticalStackViewLayout()
+        setupSummaryStackViewLayout()
         setupSummaryTitleLabelLayout()
         setupSummaryContentLabelLayout()
     }
@@ -46,12 +46,12 @@ final class BookSummaryView: UIView {
         summaryContentLabel.text = book.summary
     }
     
-    // 세로 스택뷰(VerticalStackView) 제약조건 설정
-    private func setupVerticalStackViewLayout() {
-        verticalStackView.axis = .vertical
-        verticalStackView.spacing = 8
+    // 세로 스택뷰(summaryStackView) 제약조건 설정
+    private func setupSummaryStackViewLayout() {
+        summaryStackView.axis = .vertical
+        summaryStackView.spacing = 8
         
-        verticalStackView.snp.makeConstraints {
+        summaryStackView.snp.makeConstraints {
             $0.directionalEdges.equalToSuperview()
         }
     }

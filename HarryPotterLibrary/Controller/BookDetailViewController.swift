@@ -3,7 +3,7 @@
 //  HarryPotterLibrary
 //
 //  Created by 서광용 on 6/13/25.
-// MARK: 메인 VC
+// MARK: - 메인 VC
 
 import UIKit
 import SnapKit

@@ -9,8 +9,7 @@ import UIKit
 import SnapKit
 
 class BookChaptersView: UIView {
-    private let verticalStackView = UIStackView()
-    
+    private let chaptersStackView = UIStackView()
     private let chaptersTitleLabel = UILabel()
     
     override init(frame: CGRect) {
@@ -25,13 +24,13 @@ class BookChaptersView: UIView {
     
     // MARK: - 뷰 계층 구성
     private func setupUI() {
-        addSubview(verticalStackView)
-        verticalStackView.addArrangedSubview(chaptersTitleLabel)
+        addSubview(chaptersStackView)
+        chaptersStackView.addArrangedSubview(chaptersTitleLabel)
     }
     
     // MARK: - 제약조건 설정
     private func setupLayout() {
-        setupVerticalStackViewLayout()
+        setupChaptersStackViewLayout()
         setupChaptersTitleLabelLayout()
     }
     
@@ -39,23 +38,23 @@ class BookChaptersView: UIView {
     /// - Parameter chapters: 표시할 Chapter 배열
     func configure(with chapters: [Chapter]) {
         // configure가 여러번 호출 될 경우, 중복을 막기 위해 제거하는 코드
-        verticalStackView.arrangedSubviews
+        chaptersStackView.arrangedSubviews
             .dropFirst() // 첫 번째는 제목 라벨(chaptersLabel)이니까 냅둠
             .forEach { $0.removeFromSuperview() }
 
         // 챕터들 반복해서 UILabel 생성 후 추가
         chapters.enumerated().forEach { index, chapter in
             let label = setupChapterLabelLayout(title: chapter.title)
-            verticalStackView.addArrangedSubview(label)
+            chaptersStackView.addArrangedSubview(label)
         }
     }
     
-    // 세로 스택뷰(VerticalStackView) 제약조건 설정
-    private func setupVerticalStackViewLayout() {
-        verticalStackView.axis = .vertical
-        verticalStackView.spacing = 8
+    // 세로 스택뷰(chaptersStackView) 제약조건 설정
+    private func setupChaptersStackViewLayout() {
+        chaptersStackView.axis = .vertical
+        chaptersStackView.spacing = 8
         
-        verticalStackView.snp.makeConstraints {
+        chaptersStackView.snp.makeConstraints {
             $0.directionalEdges.equalToSuperview()
         }
     }
