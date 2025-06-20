@@ -58,7 +58,7 @@ final class BookSummaryView: UIView {
     
     // 요약 제목
     private func setupSummaryTitleLabelLayout() {
-        summaryTitleLabel.text = "Summary"
+        summaryTitleLabel.text = BookSectionTitle.summary // "Summary"
         summaryTitleLabel.font = .boldSystemFont(ofSize: 18)
         summaryTitleLabel.textColor = .black
         summaryTitleLabel.numberOfLines = 1

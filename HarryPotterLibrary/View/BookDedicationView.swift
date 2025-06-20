@@ -58,7 +58,7 @@ final class BookDedicationView: UIView {
 
     // 타이틀 제목
     private func setupDedicationTitleLabelLayout() {
-        dedicationTitleLabel.text = "Dedication"
+        dedicationTitleLabel.text = BookSectionTitle.dedication // "Dedication"
         dedicationTitleLabel.font = .boldSystemFont(ofSize: 18)
         dedicationTitleLabel.textColor = .black
         dedicationTitleLabel.numberOfLines = 1
