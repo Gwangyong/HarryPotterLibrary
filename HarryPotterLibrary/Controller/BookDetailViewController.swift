@@ -53,3 +53,20 @@ final class BookDetailViewController: UIViewController {
         }
     }
 }
+
+// MARK: - #Preview 사용
+import SwiftUI
+
+struct BookDetailViewControllerPreview: UIViewControllerRepresentable {
+    func makeUIViewController(context: Context) -> BookDetailViewController {
+        return BookDetailViewController()
+    }
+
+    func updateUIViewController(_ uiViewController: BookDetailViewController, context: Context) {
+        // 업데이트 로직은 필요하지 않음
+    }
+}
+
+#Preview {
+    BookDetailViewControllerPreview()
+}
