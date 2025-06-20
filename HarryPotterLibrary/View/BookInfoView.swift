@@ -78,7 +78,7 @@ final class BookInfoView: UIView {
         
         horizentalStackView.snp.makeConstraints {
             $0.top.bottom.equalToSuperview()
-            $0.leading.trailing.equalToSuperview().inset(20)
+            $0.leading.trailing.equalToSuperview()
         }
     }
     
@@ -123,9 +123,11 @@ final class BookInfoView: UIView {
         authorTitleLabel.font = .boldSystemFont(ofSize: 16)
         authorTitleLabel.textColor = .black
         authorTitleLabel.text = "Author" // 변하지 않아서 하드코딩
+        authorTitleLabel.numberOfLines = 1
         
         authorContentLabel.font = .systemFont(ofSize: 18)
         authorContentLabel.textColor = .darkGray
+        authorContentLabel.numberOfLines = 0
         
         // 우선순위 설정
         authorTitleLabel.setContentHuggingPriority(.required, for: .horizontal)
@@ -151,9 +153,11 @@ final class BookInfoView: UIView {
         releaseDateTitleLabel.font = .boldSystemFont(ofSize: 14)
         releaseDateTitleLabel.textColor = .black
         releaseDateTitleLabel.text = "Released"
+        releaseDateTitleLabel.numberOfLines = 1
         
         releaseDateContentLabel.font = .systemFont(ofSize: 14)
         releaseDateContentLabel.textColor = .gray
+        releaseDateContentLabel.numberOfLines = 0
         
         // 우선순위 설정
         releaseDateTitleLabel.setContentHuggingPriority(.required, for: .horizontal)
@@ -179,9 +183,11 @@ final class BookInfoView: UIView {
         pageCountTitleLabel.font = .boldSystemFont(ofSize: 14)
         pageCountTitleLabel.textColor = .black
         pageCountTitleLabel.text = "Pages"
+        pageCountTitleLabel.numberOfLines = 1
         
         pageCountContentLabel.font = .systemFont(ofSize: 14)
         pageCountContentLabel.textColor = .gray
+        pageCountContentLabel.numberOfLines = 0
         
         // 우선순위 설정
         pageCountTitleLabel.setContentHuggingPriority(.required, for: .horizontal)

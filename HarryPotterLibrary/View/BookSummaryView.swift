@@ -52,8 +52,8 @@ final class BookSummaryView: UIView {
         verticalStackView.spacing = 8
         
         verticalStackView.snp.makeConstraints {
-            $0.top.equalToSuperview() // TODO: 밑에 stackView 하나가 더 추가되면 bottom제약 추가
-            $0.leading.trailing.equalToSuperview().inset(20)
+            $0.top.bottom.equalToSuperview()
+            $0.leading.trailing.equalToSuperview()
         }
     }
     
@@ -62,6 +62,7 @@ final class BookSummaryView: UIView {
         summaryTitleLabel.font = .boldSystemFont(ofSize: 18)
         summaryTitleLabel.textColor = .black
         summaryTitleLabel.text = "Summary"
+        summaryTitleLabel.numberOfLines = 1
     }
     
     // 요약 내용

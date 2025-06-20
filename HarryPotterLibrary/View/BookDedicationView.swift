@@ -53,7 +53,7 @@ final class BookDedicationView: UIView {
         
         verticalStackView.snp.makeConstraints {
             $0.top.bottom.equalToSuperview()
-            $0.leading.trailing.equalToSuperview().inset(20)
+            $0.leading.trailing.equalToSuperview()
         }
     }
 
@@ -62,6 +62,7 @@ final class BookDedicationView: UIView {
         dedicationTitleLabel.font = .boldSystemFont(ofSize: 18)
         dedicationTitleLabel.textColor = .black
         dedicationTitleLabel.text = "Dedication"
+        dedicationTitleLabel.numberOfLines = 1
     }
     
     // 타이틀 내용
