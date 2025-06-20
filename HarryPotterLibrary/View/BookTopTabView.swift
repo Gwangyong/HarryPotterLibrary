@@ -14,17 +14,21 @@ final class BookTopTabView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setupseriesButtonLayout()
+        setupUI()
+        setupLayout()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    // MARK: - 제약조건 설정
-    private func setupseriesButtonLayout() {
+    // MARK: - 뷰 계층 구성
+    private func setupUI() {
         addSubview(seriesButton)
+    }
     
+    // MARK: - 제약조건 설정
+    private func setupLayout() {
         seriesButton.setTitle("1", for: .normal) // 우선은 하드코딩
         seriesButton.titleLabel?.font = .systemFont(ofSize: 16)
         seriesButton.setTitleColor(.white, for: .normal)

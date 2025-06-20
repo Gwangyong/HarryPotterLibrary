@@ -5,8 +5,8 @@
 //  Created by 서광용 on 6/13/25.
 // MARK: 메인 VC
 
-import SnapKit
 import UIKit
+import SnapKit
 
 final class BookDetailViewController: UIViewController {
     
@@ -39,11 +39,13 @@ final class BookDetailViewController: UIViewController {
             case .success(let books):
                 // 첫 번째 책 제목 표시
                 let index = 0
-                let book = books[index]
+                let book = books[0]
+                let chapters = book.chapters
                 bookDetailView.bookTitleView.configure(with: book)
                 bookDetailView.bookInfoView.configure(with: book, index: index)
                 bookDetailView.bookDedicationView.configure(with: book)
                 bookDetailView.bookSummaryView.configure(with: book)
+                bookDetailView.bookChaptersView.configure(with: chapters)
             case .failure(let error):
                 // 메인 스레드에서 실행
                 DispatchQueue.main.async {
@@ -52,4 +54,21 @@ final class BookDetailViewController: UIViewController {
             }
         }
     }
+}
+
+// MARK: - #Preview 사용
+import SwiftUI
+
+struct BookDetailViewControllerPreview: UIViewControllerRepresentable {
+    func makeUIViewController(context: Context) -> BookDetailViewController {
+        return BookDetailViewController()
+    }
+
+    func updateUIViewController(_ uiViewController: BookDetailViewController, context: Context) {
+        // 업데이트 로직은 필요하지 않음
+    }
+}
+
+#Preview {
+    BookDetailViewControllerPreview()
 }

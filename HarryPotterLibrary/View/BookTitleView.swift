@@ -14,7 +14,8 @@ final class BookTitleView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setupTitleLabelLayout()
+        setupUI()
+        setupLayout()
     }
     
     required init?(coder: NSCoder) {
@@ -27,10 +28,13 @@ final class BookTitleView: UIView {
         titleLabel.text = book.title
     }
     
-    // MARK: - 제약조건 설정
-    private func setupTitleLabelLayout() {
+    // MARK: - 뷰 계층 구성
+    private func setupUI() {
         addSubview(titleLabel)
-        
+    }
+    
+    // MARK: - 제약조건 설정
+    private func setupLayout() {
         titleLabel.font = UIFont.boldSystemFont(ofSize: 24)
         titleLabel.textAlignment = .center
         // 텍스트 줄 수 제한 없이 필요한 만큼 줄바꿈

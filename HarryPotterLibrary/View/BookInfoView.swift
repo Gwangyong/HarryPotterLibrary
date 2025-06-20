@@ -5,8 +5,8 @@
 //  Created by 서광용 on 6/17/25.
 // MARK: 책 표지, 저자, 출간일, 페이지 수 View
 
-import SnapKit
 import UIKit
+import SnapKit
 
 final class BookInfoView: UIView {
     private let horizentalStackView = UIStackView()
@@ -66,7 +66,7 @@ final class BookInfoView: UIView {
         pageCountContentLabel.text = "\(book.pages)"
         
         // 시리즈 번호로 이름 매칭해서 이미지 가져오기
-        let imageName = "harrypotter\(index + 1)"
+        let imageName = BookSeriesImage.imageName(index: index)
         imageView.image = UIImage(named: imageName)
     }
     
@@ -77,8 +77,7 @@ final class BookInfoView: UIView {
         horizentalStackView.alignment = .top
         
         horizentalStackView.snp.makeConstraints {
-            $0.top.bottom.equalToSuperview()
-            $0.leading.trailing.equalToSuperview().inset(20)
+            $0.directionalEdges.equalToSuperview()
         }
     }
     
@@ -122,10 +121,12 @@ final class BookInfoView: UIView {
     private func setupAuthorLabelLayout() {
         authorTitleLabel.font = .boldSystemFont(ofSize: 16)
         authorTitleLabel.textColor = .black
-        authorTitleLabel.text = "Author" // 변하지 않아서 하드코딩
+        authorTitleLabel.text = InfoViewSectionLabel.author // MARK: "Author"
+        authorTitleLabel.numberOfLines = 1
         
         authorContentLabel.font = .systemFont(ofSize: 18)
         authorContentLabel.textColor = .darkGray
+        authorContentLabel.numberOfLines = 0
         
         // 우선순위 설정
         authorTitleLabel.setContentHuggingPriority(.required, for: .horizontal)
@@ -150,10 +151,12 @@ final class BookInfoView: UIView {
     private func setupReleaseDateLabelLayout() {
         releaseDateTitleLabel.font = .boldSystemFont(ofSize: 14)
         releaseDateTitleLabel.textColor = .black
-        releaseDateTitleLabel.text = "Released"
+        releaseDateTitleLabel.text = InfoViewSectionLabel.released // MARK:  Released
+        releaseDateTitleLabel.numberOfLines = 1
         
         releaseDateContentLabel.font = .systemFont(ofSize: 14)
         releaseDateContentLabel.textColor = .gray
+        releaseDateContentLabel.numberOfLines = 0
         
         // 우선순위 설정
         releaseDateTitleLabel.setContentHuggingPriority(.required, for: .horizontal)
@@ -178,10 +181,12 @@ final class BookInfoView: UIView {
     private func setupPageCountLabelLayout() {
         pageCountTitleLabel.font = .boldSystemFont(ofSize: 14)
         pageCountTitleLabel.textColor = .black
-        pageCountTitleLabel.text = "Pages"
+        pageCountTitleLabel.text = InfoViewSectionLabel.pages // MARK:  "Pages"
+        pageCountTitleLabel.numberOfLines = 1
         
         pageCountContentLabel.font = .systemFont(ofSize: 14)
         pageCountContentLabel.textColor = .gray
+        pageCountContentLabel.numberOfLines = 0
         
         // 우선순위 설정
         pageCountTitleLabel.setContentHuggingPriority(.required, for: .horizontal)
@@ -200,12 +205,12 @@ final class BookInfoView: UIView {
     private func formatDate(_ dateString: String) -> String {
         // 입력된 문자열 형식 설정 ("yyyy-MM-dd" 형식)
         let inputFormatter = DateFormatter()
-        inputFormatter.dateFormat = "yyyy-MM-dd"
+        inputFormatter.dateFormat = InfoViewDateFormat.input // MARK: "yyyy-MM-dd"
 
         // 출력할 문자열 형식 설정 ("MMMM d, yyyy" → 예: June 26, 1997)
         // MMMM: 월 전체 이름(June), d: 일, yyyy: 연도
         let outputFormatter = DateFormatter()
-        outputFormatter.dateFormat = "MMMM d, yyyy"
+        outputFormatter.dateFormat = InfoViewDateFormat.output // MARK: "MMMM d, yyyy"
         outputFormatter.locale = Locale(identifier: "en_US")  // locals를 en_US로 지정해줘야 월이 영어 이름이 나옴
 
         // 입력 문자열을 변환 시도
@@ -215,6 +220,27 @@ final class BookInfoView: UIView {
         } else {
             // 파싱 실패 시 원본 그대로 반환
             return dateString
+        }
+    }
+    
+    // MARK: 별 의미는 없지만 하드코딩을 아예 안써보고 싶어서 해보는 중..
+    // 섹션별 라벨
+    private enum InfoViewSectionLabel {
+        static let author = "Author"
+        static let released = "Released"
+        static let pages = "Pages"
+    }
+    
+    // 날짜 포맷
+    private enum InfoViewDateFormat {
+        static let input = "yyyy-MM-dd"
+        static let output = "MMMM d, yyyy"
+    }
+    
+    // 시리즈 이미지
+    private enum BookSeriesImage {
+        static func imageName(index: Int) -> String {
+            return "harrypotter\(index + 1)"
         }
     }
 }

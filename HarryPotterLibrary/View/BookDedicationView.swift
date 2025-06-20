@@ -5,8 +5,8 @@
 //  Created by 서광용 on 6/19/25.
 // MARK: - 책 헌정사 View
 
-import SnapKit
 import UIKit
+import SnapKit
 
 final class BookDedicationView: UIView {
     private let verticalStackView = UIStackView()
@@ -52,16 +52,16 @@ final class BookDedicationView: UIView {
         verticalStackView.spacing = 8 // 타이틀(Dedication)과 헌정사(내용) 사이 간격 8
         
         verticalStackView.snp.makeConstraints {
-            $0.top.bottom.equalToSuperview()
-            $0.leading.trailing.equalToSuperview().inset(20)
+            $0.directionalEdges.equalToSuperview()
         }
     }
 
     // 타이틀 제목
     private func setupDedicationTitleLabelLayout() {
+        dedicationTitleLabel.text = BookSectionTitle.dedication // "Dedication"
         dedicationTitleLabel.font = .boldSystemFont(ofSize: 18)
         dedicationTitleLabel.textColor = .black
-        dedicationTitleLabel.text = "Dedication"
+        dedicationTitleLabel.numberOfLines = 1
     }
     
     // 타이틀 내용

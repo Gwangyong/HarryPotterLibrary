@@ -5,8 +5,8 @@
 //  Created by 서광용 on 6/19/25.
 // MARK: 책 요약 View
 
-import SnapKit
 import UIKit
+import SnapKit
 
 final class BookSummaryView: UIView {
     private let verticalStackView = UIStackView()
@@ -52,16 +52,16 @@ final class BookSummaryView: UIView {
         verticalStackView.spacing = 8
         
         verticalStackView.snp.makeConstraints {
-            $0.top.equalToSuperview() // TODO: 밑에 stackView 하나가 더 추가되면 bottom제약 추가
-            $0.leading.trailing.equalToSuperview().inset(20)
+            $0.directionalEdges.equalToSuperview()
         }
     }
     
     // 요약 제목
     private func setupSummaryTitleLabelLayout() {
+        summaryTitleLabel.text = BookSectionTitle.summary // "Summary"
         summaryTitleLabel.font = .boldSystemFont(ofSize: 18)
         summaryTitleLabel.textColor = .black
-        summaryTitleLabel.text = "Summary"
+        summaryTitleLabel.numberOfLines = 1
     }
     
     // 요약 내용
