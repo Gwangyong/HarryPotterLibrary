@@ -5,8 +5,8 @@
 //  Created by 서광용 on 6/17/25.
 // MARK: 전체 View 컨테이너 (스크롤뷰 + 콘텐츠뷰 + 스택뷰)
 
-import SnapKit
 import UIKit
+import SnapKit
 
 final class BookDetailView: UIView {
     private let scrollView = UIScrollView()

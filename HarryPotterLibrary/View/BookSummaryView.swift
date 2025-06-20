@@ -5,8 +5,8 @@
 //  Created by 서광용 on 6/19/25.
 // MARK: 책 요약 View
 
-import SnapKit
 import UIKit
+import SnapKit
 
 final class BookSummaryView: UIView {
     private let verticalStackView = UIStackView()
