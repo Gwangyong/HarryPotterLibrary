@@ -18,6 +18,10 @@ final class BookSummaryView: UIView {
     private let summarytoggleButton = UIButton()
     private var isContentExpanded = false
     
+    private var fullSummaryContentText: String = ""
+    private var truncatedSummaryContentText: String = ""
+
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupUI()
@@ -48,15 +52,22 @@ final class BookSummaryView: UIView {
         setupSummarytoggleButtonLayout()
     }
     
-    /// Book의 summary 속성을 summaryContentLabel에 설정하는 메서드
+    /// 주어진 Book 인스턴스의 summary 값을 기반으로 요약 내용을 표시하고,
+    /// 길이에 따라 더보기 버튼의 표시 여부 및 라벨 상태를 설정하는 메서드
     /// - Parameter book: 요약 정보를 포함한 Book 인스턴스
     func configure(with book: Book) {
-        summaryContentLabel.text = book.summary
+        let summary = book.summary
         
-        // 요약 내용이 450자 이하면 "더 보기" 버튼을 숨김
-        if book.summary.count < 450 {
-            summarytoggleButton.isHidden = true
-        } else {
+        fullSummaryContentText = summary // 요약 내용 전체
+        truncatedSummaryContentText = "\(summary.prefix(450))..." // 450자 까지 끊음
+
+        if summary.count < 450 { // 450자 미만
+            summaryContentLabel.text = fullSummaryContentText // 전체 내용 보여줌
+            summaryContentLabel.numberOfLines = 0
+            summarytoggleButton.isHidden = true // 버튼 숨김
+        } else { // 450자 이상
+            summaryContentLabel.text = truncatedSummaryContentText // 450자 까지만 보여줌
+            summaryContentLabel.numberOfLines = 0
             summarytoggleButton.isHidden = false
         }
     }
@@ -83,8 +94,6 @@ final class BookSummaryView: UIView {
     private func setupSummaryContentLabelLayout() {
         summaryContentLabel.font = .systemFont(ofSize: 14)
         summaryContentLabel.textColor = .darkGray
-        summaryContentLabel.numberOfLines = 1
-        summaryContentLabel.lineBreakMode = .byWordWrapping
     }
     
     // 더보기 버튼
@@ -102,11 +111,11 @@ final class BookSummaryView: UIView {
     @objc private func toggleButtonTapped() {
         isContentExpanded.toggle() // 상태 토글: false -> true, true -> false 전화
         
-        // 토글 상태에 따라서 표시 줄 수 변경 (true -> 전체 표시, false -> 1줄만 표시)
-        summaryContentLabel.numberOfLines = isContentExpanded ? 0 : 1
-        
-        // 토글 상태에 따라 이름 변경 ("더 보기" <-> "접기")
+        // 토글 상태에 따라 버튼 이름 변경
         summarytoggleButton.setTitle(isContentExpanded ? BookSummaryButtonLabel.collapse : BookSummaryButtonLabel.expand, for: .normal)
+        
+        // 토글 상태에 따라 내용 변경
+        summaryContentLabel.text = isContentExpanded ? fullSummaryContentText : truncatedSummaryContentText
     }
     
     private enum BookSummaryButtonLabel {
