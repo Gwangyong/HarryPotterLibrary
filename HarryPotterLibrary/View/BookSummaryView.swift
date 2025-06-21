@@ -20,7 +20,7 @@ final class BookSummaryView: UIView {
     
     private var fullSummaryContentText: String = ""
     private var truncatedSummaryContentText: String = ""
-
+    
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -56,20 +56,16 @@ final class BookSummaryView: UIView {
     /// 길이에 따라 더보기 버튼의 표시 여부 및 라벨 상태를 설정하는 메서드
     /// - Parameter book: 요약 정보를 포함한 Book 인스턴스
     func configure(with book: Book) {
-        let summary = book.summary
+        isContentExpanded = UserDefaults.standard.bool(forKey: "summaryExpanded")
         
+        let summary = book.summary
         fullSummaryContentText = summary // 요약 내용 전체
         truncatedSummaryContentText = "\(summary.prefix(450))..." // 450자 까지 끊음
-
-        if summary.count < 450 { // 450자 미만
-            summaryContentLabel.text = fullSummaryContentText // 전체 내용 보여줌
-            summaryContentLabel.numberOfLines = 0
-            summarytoggleButton.isHidden = true // 버튼 숨김
-        } else { // 450자 이상
-            summaryContentLabel.text = truncatedSummaryContentText // 450자 까지만 보여줌
-            summaryContentLabel.numberOfLines = 0
-            summarytoggleButton.isHidden = false
-        }
+        
+        summaryContentLabel.numberOfLines = 0
+        summarytoggleButton.isHidden = summary.count < 450
+        
+        updateSummaryUI()
     }
     
     // 세로 스택뷰(summaryStackView) 제약조건 설정
@@ -98,24 +94,24 @@ final class BookSummaryView: UIView {
     
     // 더보기 버튼
     private func setupSummarytoggleButtonLayout() {
-        summarytoggleButton.setTitle(BookSummaryButtonLabel.expand, for: .normal)
         summarytoggleButton.setTitleColor(.systemBlue, for: .normal)
-            
+        
         summarytoggleButton.snp.makeConstraints {
             $0.top.bottom.equalToSuperview()
             $0.trailing.equalToSuperview() // leading은 자동. 우측에 붙여야하니
         }
     }
     
+    private func updateSummaryUI() {
+        summaryContentLabel.text = isContentExpanded ? fullSummaryContentText : truncatedSummaryContentText // 토글 상태에 따라 내용 변경
+        summarytoggleButton.setTitle(isContentExpanded ? BookSummaryButtonLabel.collapse : BookSummaryButtonLabel.expand, for: .normal) // 토글 상태에 따라 버튼 이름 변경
+    }
+    
     // 더 보기 버튼 토글 액션함수
     @objc private func toggleButtonTapped() {
         isContentExpanded.toggle() // 상태 토글: false -> true, true -> false 전화
-        
-        // 토글 상태에 따라 버튼 이름 변경
-        summarytoggleButton.setTitle(isContentExpanded ? BookSummaryButtonLabel.collapse : BookSummaryButtonLabel.expand, for: .normal)
-        
-        // 토글 상태에 따라 내용 변경
-        summaryContentLabel.text = isContentExpanded ? fullSummaryContentText : truncatedSummaryContentText
+        updateSummaryUI()
+        UserDefaults.standard.set(isContentExpanded, forKey: "summaryExpanded")
     }
     
     private enum BookSummaryButtonLabel {
