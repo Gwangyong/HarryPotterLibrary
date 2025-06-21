@@ -52,6 +52,13 @@ final class BookSummaryView: UIView {
     /// - Parameter book: 요약 정보를 포함한 Book 인스턴스
     func configure(with book: Book) {
         summaryContentLabel.text = book.summary
+        
+        // 요약 내용이 450자 이하면 "더 보기" 버튼을 숨김
+        if book.summary.count < 450 {
+            summarytoggleButton.isHidden = true
+        } else {
+            summarytoggleButton.isHidden = false
+        }
     }
     
     // 세로 스택뷰(summaryStackView) 제약조건 설정
