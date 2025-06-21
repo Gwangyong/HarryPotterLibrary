@@ -14,6 +14,10 @@ final class BookSummaryView: UIView {
     private let summaryTitleLabel = UILabel()
     private let summaryContentLabel = UILabel()
     
+    private let summaryButtonContainerView = UIView()
+    private let summarytoggleButton = UIButton()
+    private var isContentExpanded = false
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupUI()
@@ -28,9 +32,12 @@ final class BookSummaryView: UIView {
     private func setupUI() {
         addSubview(summaryStackView)
         
-        [summaryTitleLabel, summaryContentLabel].forEach {
+        [summaryTitleLabel, summaryContentLabel, summaryButtonContainerView].forEach {
             summaryStackView.addArrangedSubview($0)
         }
+        
+        summaryButtonContainerView.addSubview(summarytoggleButton)
+        summarytoggleButton.addTarget(self, action: #selector(toggleButtonTapped), for: .touchUpInside)
     }
     
     // MARK: - 제약조건 설정
@@ -38,6 +45,7 @@ final class BookSummaryView: UIView {
         setupSummaryStackViewLayout()
         setupSummaryTitleLabelLayout()
         setupSummaryContentLabelLayout()
+        setupSummarytoggleButtonLayout()
     }
     
     /// Book의 summary 속성을 summaryContentLabel에 설정하는 메서드
@@ -68,7 +76,34 @@ final class BookSummaryView: UIView {
     private func setupSummaryContentLabelLayout() {
         summaryContentLabel.font = .systemFont(ofSize: 14)
         summaryContentLabel.textColor = .darkGray
-        summaryContentLabel.numberOfLines = 0
+        summaryContentLabel.numberOfLines = 1
         summaryContentLabel.lineBreakMode = .byWordWrapping
+    }
+    
+    // 더보기 버튼
+    private func setupSummarytoggleButtonLayout() {
+        summarytoggleButton.setTitle(BookSummaryButtonLabel.expand, for: .normal)
+        summarytoggleButton.setTitleColor(.systemBlue, for: .normal)
+            
+        summarytoggleButton.snp.makeConstraints {
+            $0.top.bottom.equalToSuperview()
+            $0.trailing.equalToSuperview() // leading은 자동. 우측에 붙여야하니
+        }
+    }
+    
+    // 더 보기 버튼 토글 액션함수
+    @objc private func toggleButtonTapped() {
+        isContentExpanded.toggle() // 상태 토글: false -> true, true -> false 전화
+        
+        // 토글 상태에 따라서 표시 줄 수 변경 (true -> 전체 표시, false -> 1줄만 표시)
+        summaryContentLabel.numberOfLines = isContentExpanded ? 0 : 1
+        
+        // 토글 상태에 따라 이름 변경 ("더 보기" <-> "접기")
+        summarytoggleButton.setTitle(isContentExpanded ? BookSummaryButtonLabel.collapse : BookSummaryButtonLabel.expand, for: .normal)
+    }
+    
+    private enum BookSummaryButtonLabel {
+        static let expand = "더 보기"
+        static let collapse = "접기"
     }
 }

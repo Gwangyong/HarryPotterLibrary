@@ -81,7 +81,11 @@ final class BookDetailView: UIView {
             $0.top.equalTo(bookTopTabView.snp.bottom).offset(16)
             $0.leading.trailing.equalTo(safeAreaLayoutGuide).inset(20)
             $0.bottom.equalToSuperview()
-            $0.width.equalTo(bookScrollView.contentLayoutGuide) // 가로 고정
+        }
+        
+        // 세로 스크롤만 허용
+        bookScrollView.contentLayoutGuide.snp.makeConstraints {
+            $0.width.equalTo(bookScrollView.frameLayoutGuide)
         }
     }
     
