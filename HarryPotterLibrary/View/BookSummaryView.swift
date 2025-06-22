@@ -60,11 +60,16 @@ final class BookSummaryView: UIView {
         
         let summary = book.summary
         fullSummaryContentText = summary // 요약 내용 전체
-        truncatedSummaryContentText = "\(summary.prefix(450))..." // 450자 까지 끊음
-        
         summaryContentLabel.numberOfLines = 0
-        summarytoggleButton.isHidden = summary.count < 450
         
+        if summary.count > 450 {
+            truncatedSummaryContentText = "\(summary.prefix(450))..." // 450자 까지 끊음
+            summarytoggleButton.isHidden = false
+        } else {
+            truncatedSummaryContentText = fullSummaryContentText
+            summarytoggleButton.isHidden = true
+        }
+
         updateSummaryUI()
     }
     
@@ -92,6 +97,12 @@ final class BookSummaryView: UIView {
         summaryContentLabel.textColor = .darkGray
     }
     
+    // 요약 내용과 버튼 타이틀 업데이트
+    private func updateSummaryUI() {
+        summaryContentLabel.text = isContentExpanded ? fullSummaryContentText : truncatedSummaryContentText // 토글 상태에 따라 내용 변경
+        summarytoggleButton.setTitle(isContentExpanded ? BookSummaryButtonLabel.collapse : BookSummaryButtonLabel.expand, for: .normal) // 토글 상태에 따라 버튼 이름 변경
+    }
+    
     // 더보기 버튼
     private func setupSummarytoggleButtonLayout() {
         summarytoggleButton.setTitleColor(.systemBlue, for: .normal)
@@ -102,11 +113,6 @@ final class BookSummaryView: UIView {
         }
     }
     
-    private func updateSummaryUI() {
-        summaryContentLabel.text = isContentExpanded ? fullSummaryContentText : truncatedSummaryContentText // 토글 상태에 따라 내용 변경
-        summarytoggleButton.setTitle(isContentExpanded ? BookSummaryButtonLabel.collapse : BookSummaryButtonLabel.expand, for: .normal) // 토글 상태에 따라 버튼 이름 변경
-    }
-    
     // 더 보기 버튼 토글 액션함수
     @objc private func toggleButtonTapped() {
         isContentExpanded.toggle() // 상태 토글: false -> true, true -> false 전화
@@ -114,6 +120,7 @@ final class BookSummaryView: UIView {
         UserDefaults.standard.set(isContentExpanded, forKey: "summaryExpanded")
     }
     
+    // 더 보기 버튼 타이틀 모음
     private enum BookSummaryButtonLabel {
         static let expand = "더 보기"
         static let collapse = "접기"
