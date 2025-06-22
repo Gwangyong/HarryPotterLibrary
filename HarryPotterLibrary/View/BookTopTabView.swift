@@ -3,7 +3,7 @@
 //  HarryPotterLibrary
 //
 //  Created by 서광용 on 6/16/25.
-// MARK: 책 시리즈 탭(1~7) view
+// MARK: - 책 시리즈 탭(1~7) view
 
 import UIKit
 import SnapKit

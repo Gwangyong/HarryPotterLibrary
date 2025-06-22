@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 
 final class BookDedicationView: UIView {
-    private let verticalStackView = UIStackView()
+    private let dedicationStackView = UIStackView()
     
     private let dedicationTitleLabel = UILabel()
     private let dedicationContentLabel = UILabel()
@@ -26,16 +26,16 @@ final class BookDedicationView: UIView {
     
     // MARK: - 뷰 계층 구성
     private func setupUI() {
-        addSubview(verticalStackView)
+        addSubview(dedicationStackView)
         
         [dedicationTitleLabel, dedicationContentLabel].forEach {
-            verticalStackView.addArrangedSubview($0)
+            dedicationStackView.addArrangedSubview($0)
         }
     }
     
     // MARK: - 제약조건 설정
     private func setupLayout() {
-        setupVerticalStackViewLayout()
+        setupDedicationStackViewLayout()
         setupDedicationTitleLabelLayout()
         setupDedicationContentLabelLayout()
     }
@@ -46,12 +46,12 @@ final class BookDedicationView: UIView {
         dedicationContentLabel.text = book.dedication
     }
     
-    // 세로 스택뷰(VerticalStackView) 제약조건 설정
-    private func setupVerticalStackViewLayout() {
-        verticalStackView.axis = .vertical
-        verticalStackView.spacing = 8 // 타이틀(Dedication)과 헌정사(내용) 사이 간격 8
+    // 세로 스택뷰(dedicationStackView) 제약조건 설정
+    private func setupDedicationStackViewLayout() {
+        dedicationStackView.axis = .vertical
+        dedicationStackView.spacing = 8 // 타이틀(Dedication)과 헌정사(내용) 사이 간격 8
         
-        verticalStackView.snp.makeConstraints {
+        dedicationStackView.snp.makeConstraints {
             $0.directionalEdges.equalToSuperview()
         }
     }

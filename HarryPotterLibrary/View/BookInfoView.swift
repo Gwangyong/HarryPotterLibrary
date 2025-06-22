@@ -3,15 +3,15 @@
 //  HarryPotterLibrary
 //
 //  Created by 서광용 on 6/17/25.
-// MARK: 책 표지, 저자, 출간일, 페이지 수 View
+// MARK: - 책 표지, 저자, 출간일, 페이지 수 View
 
 import UIKit
 import SnapKit
 
 final class BookInfoView: UIView {
-    private let horizentalStackView = UIStackView()
-    private let imageView = UIImageView()
-    private let verticalStackView = UIStackView()
+    private let bookInfoHorizontalStackView = UIStackView()
+    private let bookCoverImageView = UIImageView()
+    private let bookInfoVerticalStackView = UIStackView()
     
     private let infoTitleLabel = UILabel()
     
@@ -36,11 +36,11 @@ final class BookInfoView: UIView {
     
     // MARK: - 뷰 계층 구성
     private func setupUI() {
-        addSubview(horizentalStackView)
+        addSubview(bookInfoHorizontalStackView)
         
         // 가로 스택뷰에 이미지와 텍스트 영역(verticalStackView) 추가
-        [imageView, verticalStackView].forEach {
-            horizentalStackView.addArrangedSubview($0)
+        [bookCoverImageView, bookInfoVerticalStackView].forEach {
+            bookInfoHorizontalStackView.addArrangedSubview($0)
         }
     }
     
@@ -67,35 +67,35 @@ final class BookInfoView: UIView {
         
         // 시리즈 번호로 이름 매칭해서 이미지 가져오기
         let imageName = BookSeriesImage.imageName(index: index)
-        imageView.image = UIImage(named: imageName)
+        bookCoverImageView.image = UIImage(named: imageName)
     }
     
     // 가로 스택뷰(horizentalStackView) 제약조건 설정
     private func setupHorizentalStackViewLayout() {
-        horizentalStackView.axis = .horizontal
-        horizentalStackView.spacing = 16
-        horizentalStackView.alignment = .top
+        bookInfoHorizontalStackView.axis = .horizontal
+        bookInfoHorizontalStackView.spacing = 16
+        bookInfoHorizontalStackView.alignment = .top
         
-        horizentalStackView.snp.makeConstraints {
+        bookInfoHorizontalStackView.snp.makeConstraints {
             $0.directionalEdges.equalToSuperview()
         }
     }
     
     // 이미지 뷰(ImageView) 제약조건 설정
     private func setupImageViewLayout() {
-        imageView.contentMode = .scaleAspectFill // 비율 유지하며 프레임을 꽉채움
-        imageView.clipsToBounds = true // 넘어가는 부분은 자름
+        bookCoverImageView.contentMode = .scaleAspectFill // 비율 유지하며 프레임을 꽉채움
+        bookCoverImageView.clipsToBounds = true // 넘어가는 부분은 자름
         
-        imageView.snp.makeConstraints {
+        bookCoverImageView.snp.makeConstraints {
             $0.width.equalTo(100)
-            $0.height.equalTo(imageView.snp.width).multipliedBy(1.5) // height = width x 1.5
+            $0.height.equalTo(bookCoverImageView.snp.width).multipliedBy(1.5) // height = width x 1.5
         }
     }
     
     // 세로 스택뷰(VerticalStackView) 제약조건 설정
     private func setupVerticalStackViewLayout() {
-        verticalStackView.axis = .vertical
-        verticalStackView.spacing = 6
+        bookInfoVerticalStackView.axis = .vertical
+        bookInfoVerticalStackView.spacing = 6
     }
     
     // 제목 라벨(InfoTitleLabel) 제약조건 설정
@@ -105,7 +105,7 @@ final class BookInfoView: UIView {
         infoTitleLabel.numberOfLines = 0
         
         // verticalStackView에 추가
-        verticalStackView.addArrangedSubview(infoTitleLabel)
+        bookInfoVerticalStackView.addArrangedSubview(infoTitleLabel)
     }
     
     // 저자 라벨(AuthorLabel) Row StackView 생성
@@ -136,7 +136,7 @@ final class BookInfoView: UIView {
         authorContentLabel.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
         
         let authorRow = makeAuthorRowStackView()
-        verticalStackView.addArrangedSubview(authorRow)
+        bookInfoVerticalStackView.addArrangedSubview(authorRow)
     }
     
     // 출간일 라벨(ReleaseDateLabel) Row StackView 생성
@@ -166,7 +166,7 @@ final class BookInfoView: UIView {
         releaseDateContentLabel.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
         
         let releaseDateRow = makeReleaseDateRowStackView()
-        verticalStackView.addArrangedSubview(releaseDateRow)
+        bookInfoVerticalStackView.addArrangedSubview(releaseDateRow)
     }
     
     // 페이지 수 라벨(PageCountLabel) Row StackView 생성
@@ -196,7 +196,7 @@ final class BookInfoView: UIView {
         pageCountContentLabel.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
         
         let pageCountRow = makePageCountRowStackView()
-        verticalStackView.addArrangedSubview(pageCountRow)
+        bookInfoVerticalStackView.addArrangedSubview(pageCountRow)
     }
     
     /// 주어진 날짜 문자열("yyyy-MM-dd" 형식)을 "MMMM d, yyyy" 형식으로 변환합니다.
