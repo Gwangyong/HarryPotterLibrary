@@ -59,7 +59,12 @@ final class BookSummaryView: UIView {
     ///    - index: 시리즈 번호(0부터 시작)로, 책 권수별 요약 쳘침 상태 저장/복원에 사용
     func configure(with book: Book, index: Int) {
         bookIndex = index // 아래 UserDefatuls에서 쓸 index 저장
-        isContentExpanded = UserDefaults.standard.bool(forKey: "summaryExpanded\(index)") // 권수별로 true인지 false인지 가져옴
+        
+        do { // UserDefaults load
+            isContentExpanded = try loadContentExpanded(for: index)
+        } catch {
+            print("UserDefatuls에서 불러오기 실패: \(error)")
+        }
         
         let summary = book.summary
         fullSummaryContentText = summary // 요약 내용 전체
@@ -127,5 +132,17 @@ final class BookSummaryView: UIView {
     private enum BookSummaryButtonLabel {
         static let expand = "더 보기"
         static let collapse = "접기"
+    }
+    
+    private func loadContentExpanded(for index: Int) throws -> Bool {
+        let key = "summaryExpanded\(index)"
+        if UserDefaults.standard.object(forKey: key) == nil {
+            throw UserDefaultsError.missingValue
+        }
+        return UserDefaults.standard.bool(forKey: key)
+    }
+    
+    private enum UserDefaultsError: Error {
+        case missingValue
     }
 }
