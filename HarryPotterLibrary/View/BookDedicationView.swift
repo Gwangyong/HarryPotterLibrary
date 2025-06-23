@@ -10,7 +10,6 @@ import SnapKit
 
 final class BookDedicationView: UIView {
     private let dedicationStackView = UIStackView()
-    
     private let dedicationTitleLabel = UILabel()
     private let dedicationContentLabel = UILabel()
     

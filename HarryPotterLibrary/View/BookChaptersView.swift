@@ -67,6 +67,7 @@ class BookChaptersView: UIView {
         chaptersTitleLabel.textColor = .black
     }
     
+    // 목차 레이블
     private func setupChapterLabelLayout(title: String) -> UILabel {
         let label = UILabel()
         label.text = title
