@@ -55,10 +55,10 @@ final class BookInfoView: UIView {
          setupPageCountLabelLayout()
     }
     
-    /// Book 모델 데이터를 받아서 BookInfoView 내부 라벨과 이미지 뷰에 설정하는 메서드
+    /// 전달받은 Book 인스턴스를 기반으로 책 정보의 라벨과 이미지를 설정하는 메서드
     /// - Parameters:
-    ///   - book: 표시할 책 정보(Book 타입)
-    ///   - index: 시리즈 번호(0부터 시작)로, 이미지 에셋 이름 매칭에 사용됨 (예: harrypotter1 ~ harrypotter7)
+    ///   - book: 책 정보가 포함된 Book 인스턴스
+    ///   - index: 시리즈 번호(0부터 시작)로, 이미지 에셋 이름 매칭에 사용 (예: harrypotter1 ~ harrypotter7)
     func configure(with book: Book, index: Int) {
         infoTitleLabel.text = book.title
         authorContentLabel.text = book.author

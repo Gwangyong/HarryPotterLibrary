@@ -22,8 +22,8 @@ final class BookTitleView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    /// Book의 title 속성을 BookTitleView의 titleLabel에 설정하는 메서드
-    /// - Parameter book: 제목 정보를 포함한 Book 인스턴스
+    /// 전달받은 Book 인스턴스를 기반으로 제목 라벨을 설정하는 메서드
+    /// - Parameter book: 제목 정보가 포함된 Book 인스턴스
     func configure(with book: Book) {
         titleLabel.text = book.title
     }

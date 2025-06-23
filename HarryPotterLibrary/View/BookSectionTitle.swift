@@ -10,4 +10,3 @@ enum BookSectionTitle {
     static let summary = "Summary"
     static let chapters = "Chapters"
 }
-

@@ -21,6 +21,7 @@ final class BookSummaryView: UIView {
     private var fullSummaryContentText: String = ""
     private var truncatedSummaryContentText: String = ""
     
+    private var bookIndex = 0
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -52,11 +53,18 @@ final class BookSummaryView: UIView {
         setupSummarytoggleButtonLayout()
     }
     
-    /// 주어진 Book 인스턴스의 summary 값을 기반으로 요약 내용을 표시하고,
-    /// 길이에 따라 더보기 버튼의 표시 여부 및 라벨 상태를 설정하는 메서드
-    /// - Parameter book: 요약 정보를 포함한 Book 인스턴스
-    func configure(with book: Book) {
-        isContentExpanded = UserDefaults.standard.bool(forKey: "summaryExpanded")
+    /// 전달받은 Book 인스턴스를 기반으로 요약 내용을 표시하고, 길이에 따라 "더 보기" 버튼 상태를 설정하는 메서드
+    /// - Parameters:
+    ///    - book: 요약 정보가 포함된 Book 인스턴스
+    ///    - index: 시리즈 번호(0부터 시작)로, 책 권수별 요약 쳘침 상태 저장/복원에 사용
+    func configure(with book: Book, index: Int) {
+        bookIndex = index // 아래 UserDefatuls에서 쓸 index 저장
+        
+        do { // UserDefaults load
+            isContentExpanded = try loadContentExpanded(for: index)
+        } catch {
+            print("UserDefatuls에서 불러오기 실패: \(error)")
+        }
         
         let summary = book.summary
         fullSummaryContentText = summary // 요약 내용 전체
@@ -117,12 +125,24 @@ final class BookSummaryView: UIView {
     @objc private func toggleButtonTapped() {
         isContentExpanded.toggle() // 상태 토글: false -> true, true -> false 전화
         updateSummaryUI()
-        UserDefaults.standard.set(isContentExpanded, forKey: "summaryExpanded")
+        UserDefaults.standard.set(isContentExpanded, forKey: "summaryExpanded\(bookIndex)")
     }
     
     // 더 보기 버튼 타이틀 모음
     private enum BookSummaryButtonLabel {
         static let expand = "더 보기"
         static let collapse = "접기"
+    }
+    
+    private func loadContentExpanded(for index: Int) throws -> Bool {
+        let key = "summaryExpanded\(index)"
+        if UserDefaults.standard.object(forKey: key) == nil {
+            throw UserDefaultsError.missingValue
+        }
+        return UserDefaults.standard.bool(forKey: key)
+    }
+    
+    private enum UserDefaultsError: Error {
+        case missingValue
     }
 }

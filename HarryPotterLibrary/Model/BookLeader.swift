@@ -9,9 +9,18 @@ import Foundation
 
 final class BookLeader {
     
-    private enum DataError: Error {
+    enum DataError: Error, LocalizedError { // LocalizedError 프로토콜: 에러 메시지 직접 지정 가능
         case fileNotFound
         case parsingFailed
+        
+        var errorDescription: String? {
+            switch self {
+            case .fileNotFound:
+                return "데이터 파일을 찾을 수 없습니다."
+            case .parsingFailed:
+                return "데이터를 불러오는데 실패하였습니다."
+            }
+        }
     }
     
     // Success 자리에 [Book]이 들어감 -> 성공하면 책 배열을 반환

@@ -10,7 +10,6 @@ import SnapKit
 
 final class BookDedicationView: UIView {
     private let dedicationStackView = UIStackView()
-    
     private let dedicationTitleLabel = UILabel()
     private let dedicationContentLabel = UILabel()
     
@@ -40,8 +39,8 @@ final class BookDedicationView: UIView {
         setupDedicationContentLabelLayout()
     }
     
-    /// Book의 dedication 속성을 dedicationContentLabel에 설정하는 메서드
-    /// - Parameter book: 헌정사 정보를 포함한 Book 인스턴스
+    /// 전달받은 Book 인스턴스를 기반으로 헌정사 내용을 설정하는 메서드
+    /// - Parameter book: 헌정사 정보가 포함된 Book 인스턴스
     func configure(with book: Book) {
         dedicationContentLabel.text = book.dedication
     }

@@ -34,9 +34,10 @@ class BookChaptersView: UIView {
         setupChaptersTitleLabelLayout()
     }
     
-    /// 전달받은 Chapter 배열을 UILabel로 생성해 스택뷰에 추가하는 메서드
-    /// - Parameter chapters: 표시할 Chapter 배열
-    func configure(with chapters: [Chapter]) {
+    /// 전달받은 Book 인스턴스를 기반으로 챕터 목록을 UILabel로 생성하여 스택뷰에 추가하는 메서드
+    /// - Parameter book: 챕터 정보가 포함된 Book 인스턴스
+    func configure(with book: Book) {
+        let chapters = book.chapters
         // configure가 여러번 호출 될 경우, 중복을 막기 위해 제거하는 코드
         chaptersStackView.arrangedSubviews
             .dropFirst() // 첫 번째는 제목 라벨(chaptersLabel)이니까 냅둠
@@ -66,6 +67,7 @@ class BookChaptersView: UIView {
         chaptersTitleLabel.textColor = .black
     }
     
+    // 목차 레이블
     private func setupChapterLabelLayout(title: String) -> UILabel {
         let label = UILabel()
         label.text = title
