@@ -19,7 +19,7 @@ final class BookDetailViewController: UIViewController {
         view.addSubview(bookDetailView)
         
         setupBookDetailViewLayout()
-        loadBooks()
+        loadBooks(bookIndex: 0) // 처음 켜면 1번 책으로
     }
     
     // MARK: - BookDetailView 제약 조건
@@ -30,45 +30,35 @@ final class BookDetailViewController: UIViewController {
     }
     
     // MARK: - 데이터 로딩
-    private func loadBooks() {
+    private func loadBooks(bookIndex: Int) {
         bookLeader.loadBooks { [weak self] result in
             // self가 살아있는지 확인하고, 살아있을 때만 코드 실행하는 안전장치
             guard let self = self else { return }
             
             switch result {
             case .success(let books):
-                // 첫 번째 책 제목 표시
-                let index = 0
-                let book = books[0]
-                let chapters = book.chapters
-                bookDetailView.bookTitleView.configure(with: book)
-                bookDetailView.bookInfoView.configure(with: book, index: index)
-                bookDetailView.bookDedicationView.configure(with: book)
-                bookDetailView.bookSummaryView.configure(with: book)
-                bookDetailView.bookChaptersView.configure(with: chapters)
+                let book = books[bookIndex] // 0번째 책
+                configureBookDetail(with: book, index: bookIndex)
             case .failure(let error):
-                // 메인 스레드에서 실행
-                DispatchQueue.main.async {
+                DispatchQueue.main.async { // 메인 스레드에서 실행
                     self.showErrorAlert(message: error.localizedDescription)
                 }
             }
         }
     }
-}
-
-// MARK: - #Preview 사용
-import SwiftUI
-
-struct BookDetailViewControllerPreview: UIViewControllerRepresentable {
-    func makeUIViewController(context: Context) -> BookDetailViewController {
-        return BookDetailViewController()
+    
+    // configure
+    private func configureBookDetail(with book: Book, index: Int) {
+        bookDetailView.bookTitleView.configure(with: book) // Title
+        bookDetailView.bookInfoView.configure(with: book, index: index) // Info
+        bookDetailView.bookDedicationView.configure(with: book) // Dedication
+        bookDetailView.bookSummaryView.configure(with: book, index: index) // Summary
+        bookDetailView.bookChaptersView.configure(with: book) // Chapters
     }
-
-    func updateUIViewController(_ uiViewController: BookDetailViewController, context: Context) {
-        // 업데이트 로직은 필요하지 않음
+    
+    // seriesButton 눌림 액션
+    @objc func seriesButtonTapped(_ button: UIButton) {
+        let selectedIndex = button.tag
+        loadBooks(bookIndex: selectedIndex)
     }
-}
-
-#Preview {
-    BookDetailViewControllerPreview()
 }
