@@ -52,38 +52,6 @@
 
 ---
 
-## 🎥 시연 GIF & Image
-
-<table>
-  <tr>
-    <td align="center">
-      <strong>아이폰 16 Pro Max 시연</strong><br>
-      <img src="https://github.com/user-attachments/assets/c0bfa008-0b07-44c2-9fc8-f2fb6620053a" width="300"/>
-    </td>
-    <td align="center">
-      <strong>아이폰 SE2 시연</strong><br>
-      <img src="https://github.com/user-attachments/assets/aace96e5-2887-4f9e-bdc1-3e9c2dc01d17" width="300"/>
-    </td>
-  </tr>
-</table>
-
----
-
-<table>
-  <tr>
-    <td align="center">
-      <strong>JSON 파싱 실패</strong><br>
-      <img src="https://github.com/user-attachments/assets/16f7ab5a-9ac4-4b62-b313-41b7ab0edc30" width="300"/>
-    </td>
-    <td align="center">
-      <strong>파일 누락</strong><br>
-      <img src="https://github.com/user-attachments/assets/bd9d986e-05c7-42f8-b530-99aacd1cb70c" width="300"/>
-    </td>
-  </tr>
-</table>
-
----
-
 ## 📁 프로젝트 구조
 
 ```swift
@@ -115,3 +83,37 @@ HarryPotterLibrary/
 ├── SceneDelegate.swift
 └── SnapKit                                   // SnapKit 사용
 ```
+
+---
+
+
+## 🎥 시연 GIF & Image
+
+<table>
+  <tr>
+    <td align="center">
+      <strong>아이폰 16 Pro Max 시연</strong><br>
+      <img src="https://github.com/user-attachments/assets/c0bfa008-0b07-44c2-9fc8-f2fb6620053a" width="300"/>
+    </td>
+    <td align="center">
+      <strong>아이폰 SE2 시연</strong><br>
+      <img src="https://github.com/user-attachments/assets/aace96e5-2887-4f9e-bdc1-3e9c2dc01d17" width="300"/>
+    </td>
+  </tr>
+</table>
+
+---
+
+<table>
+  <tr>
+    <td align="center">
+      <strong>JSON 파싱 실패</strong><br>
+      <img src="https://github.com/user-attachments/assets/16f7ab5a-9ac4-4b62-b313-41b7ab0edc30" width="300"/>
+    </td>
+    <td align="center">
+      <strong>파일 누락</strong><br>
+      <img src="https://github.com/user-attachments/assets/bd9d986e-05c7-42f8-b530-99aacd1cb70c" width="300"/>
+    </td>
+  </tr>
+</table>
+
