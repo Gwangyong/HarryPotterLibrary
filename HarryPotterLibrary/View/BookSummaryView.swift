@@ -116,8 +116,7 @@ final class BookSummaryView: UIView {
         summarytoggleButton.setTitleColor(.systemBlue, for: .normal)
         
         summarytoggleButton.snp.makeConstraints {
-            $0.top.bottom.equalToSuperview()
-            $0.trailing.equalToSuperview() // leading은 자동. 우측에 붙여야하니
+            $0.top.bottom.trailing.equalToSuperview() // leading은 자동. 우측에 붙여야하니
         }
     }
     

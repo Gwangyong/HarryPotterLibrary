@@ -122,18 +122,14 @@ final class BookInfoView: UIView {
         authorTitleLabel.font = .boldSystemFont(ofSize: 16)
         authorTitleLabel.textColor = .black
         authorTitleLabel.text = InfoViewSectionLabel.author // MARK: "Author"
-        authorTitleLabel.numberOfLines = 1
         
         authorContentLabel.font = .systemFont(ofSize: 18)
         authorContentLabel.textColor = .darkGray
         authorContentLabel.numberOfLines = 0
         
         // 우선순위 설정
-        authorTitleLabel.setContentHuggingPriority(.required, for: .horizontal)
-        authorTitleLabel.setContentCompressionResistancePriority(.required, for: .horizontal)
-
-        authorContentLabel.setContentHuggingPriority(.defaultLow, for: .horizontal)
-        authorContentLabel.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
+        setPriority(label: authorTitleLabel, hugging: .required, compression: .required)
+        setPriority(label: authorContentLabel, hugging: .defaultLow, compression: .defaultLow)
         
         let authorRow = makeAuthorRowStackView()
         bookInfoVerticalStackView.addArrangedSubview(authorRow)
@@ -152,15 +148,13 @@ final class BookInfoView: UIView {
         releaseDateTitleLabel.font = .boldSystemFont(ofSize: 14)
         releaseDateTitleLabel.textColor = .black
         releaseDateTitleLabel.text = InfoViewSectionLabel.released // MARK:  Released
-        releaseDateTitleLabel.numberOfLines = 1
         
         releaseDateContentLabel.font = .systemFont(ofSize: 14)
         releaseDateContentLabel.textColor = .gray
         releaseDateContentLabel.numberOfLines = 0
         
-        // 우선순위 설정
-        releaseDateTitleLabel.setContentHuggingPriority(.required, for: .horizontal)
-        releaseDateTitleLabel.setContentCompressionResistancePriority(.required, for: .horizontal)
+        setPriority(label: releaseDateTitleLabel, hugging: .required, compression: .required)
+        setPriority(label: releaseDateContentLabel, hugging: .defaultLow, compression: .defaultLow)
 
         releaseDateContentLabel.setContentHuggingPriority(.defaultLow, for: .horizontal)
         releaseDateContentLabel.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
@@ -182,21 +176,22 @@ final class BookInfoView: UIView {
         pageCountTitleLabel.font = .boldSystemFont(ofSize: 14)
         pageCountTitleLabel.textColor = .black
         pageCountTitleLabel.text = InfoViewSectionLabel.pages // MARK:  "Pages"
-        pageCountTitleLabel.numberOfLines = 1
         
         pageCountContentLabel.font = .systemFont(ofSize: 14)
         pageCountContentLabel.textColor = .gray
         pageCountContentLabel.numberOfLines = 0
         
-        // 우선순위 설정
-        pageCountTitleLabel.setContentHuggingPriority(.required, for: .horizontal)
-        pageCountTitleLabel.setContentCompressionResistancePriority(.required, for: .horizontal)
-
-        pageCountContentLabel.setContentHuggingPriority(.defaultLow, for: .horizontal)
-        pageCountContentLabel.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
+        setPriority(label: pageCountTitleLabel, hugging: .required, compression: .required)
+        setPriority(label: pageCountContentLabel, hugging: .defaultLow, compression: .defaultLow)
         
         let pageCountRow = makePageCountRowStackView()
         bookInfoVerticalStackView.addArrangedSubview(pageCountRow)
+    }
+    
+    
+    private func setPriority(label: UILabel, hugging: UILayoutPriority, compression: UILayoutPriority) {
+        label.setContentHuggingPriority(hugging, for: .horizontal)
+        label.setContentCompressionResistancePriority(compression, for: .horizontal)
     }
     
     /// 주어진 날짜 문자열("yyyy-MM-dd" 형식)을 "MMMM d, yyyy" 형식으로 변환합니다.

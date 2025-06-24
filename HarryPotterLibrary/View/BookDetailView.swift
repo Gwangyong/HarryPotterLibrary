@@ -73,8 +73,7 @@ final class BookDetailView: UIView {
     
     // bookScrollView
     private func setupBookScrollViewLayout() {
-        // 스크롤 바가 보이지 않도록 구현
-        bookScrollView.showsHorizontalScrollIndicator = false
+        // 세로 스크롤 바가 보이지 않도록 구현
         bookScrollView.showsVerticalScrollIndicator = false
         
         bookScrollView.snp.makeConstraints {

@@ -25,7 +25,7 @@ final class BookDetailViewController: UIViewController {
     // MARK: - BookDetailView 제약 조건
     private func setupBookDetailViewLayout() {
         bookDetailView.snp.makeConstraints {
-            $0.edges.equalTo(view.safeAreaLayoutGuide)
+            $0.directionalEdges.equalTo(view.safeAreaLayoutGuide)
         }
     }
     
